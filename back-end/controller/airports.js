@@ -5,13 +5,15 @@ exports.list = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");
 	const result = await airportsModel.findList();
 	if (result) {
+    // 全部列表获取成功
 		res.render("success", {
 			data: JSON.stringify(result),
 			msg: "成功获取全部机场列表"
 		});
 	} else {
+    // 全部列表获取失败
 		res.render("error", {
-			data: [],
+			data: null,
 			msg: "获取全部机场列表失败"
 		});
 	}
@@ -39,7 +41,7 @@ exports.find = async (req, res, next) => {
 		} else {
 			// 请求两个机场信息，只获取到一个机场的信息
 			res.render("error", {
-				data: [],
+				data: null,
 				msg: "暂无该机场信息"
 			});
 		}
@@ -55,7 +57,7 @@ exports.find = async (req, res, next) => {
 		} else {
 			// 请求一个机场信息，未获取任何信息
 			res.render("error", {
-				data: [],
+				data: null,
 				msg: "暂无该机场信息"
 			});
 		}

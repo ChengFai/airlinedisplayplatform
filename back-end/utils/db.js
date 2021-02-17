@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
 mongoose.connect("mongodb://localhost/airport-management", { useNewUrlParser: true, useUnifiedTopology: true });
 
 // 连接数据库
@@ -8,6 +9,23 @@ db.once("open", function () {
 	// we're connected!
 	console.log("db is connected");
 });
+
+// 定义用户的策略
+const usersSchema = mongoose.Schema({
+	// 用户名
+	username: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	// 密码
+	password: {
+		type: String,
+		required: true
+	}
+});
+// 定义用户的模式
+const Users = mongoose.model("Users", usersSchema);
 
 // 定义机场的策略
 const airportsSchema = mongoose.Schema({
@@ -37,5 +55,6 @@ const airlinesSchema = mongoose.Schema({
 const Airlines = mongoose.model("Airlines", airlinesSchema);
 
 // 导出
+exports.Users = Users;
 exports.Airports = Airports;
 exports.Airlines = Airlines;
