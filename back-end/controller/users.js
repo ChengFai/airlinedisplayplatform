@@ -10,7 +10,7 @@ exports.signup = async (req, res, next) => {
 	if (isRepeat) {
 		// 用户名已存在
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: "用户名已存在"
 		});
 	} else {
@@ -27,7 +27,7 @@ exports.signup = async (req, res, next) => {
 		} else {
 			// 注册失败
 			res.render("error", {
-				data: null,
+				data: "null",
 				msg: "注册用户失败"
 			});
 		}
@@ -56,14 +56,14 @@ exports.signin = async (req, res, next) => {
 		} else {
 			// 用户名正确，密码错误
 			res.render("error", {
-				data: null,
+				data: "null",
 				msg: "密码错误"
 			});
 		}
 	} else {
 		// 用户名不存在
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: "用户不存在"
 		});
 	}
@@ -84,7 +84,7 @@ exports.isAuth = async (req, res, next) => {
 	} catch (err) {
 		// token验证失败，用户未登录
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: "用户未登录"
 		});
 	}

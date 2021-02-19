@@ -11,7 +11,7 @@ exports.auth = async (req, res, next) => {
 	} catch (err) {
 		// token验证失败，返回结果
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: "用户未登录"
 		});
 	}

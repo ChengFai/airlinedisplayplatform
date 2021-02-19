@@ -13,7 +13,7 @@ exports.list = async (req, res, next) => {
 	} else {
     // 获取全部列表失败
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: "获取航班全部列表失败"
 		});
 	}
@@ -33,7 +33,7 @@ exports.findByFrom = async (req, res, next) => {
   } else {
 		// 根据出发地获取航班失败
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: `从${from}出发的所有航班获取失败`
 		});
 	}
@@ -53,7 +53,7 @@ exports.findByTo = async (req, res, next) => {
   } else {
 		// 根据抵达地获取航班失败
 		res.render("error", {
-			data: null,
+			data: "null",
 			msg: `抵达${to}的所有航班获取失败`
 		});
 	}
