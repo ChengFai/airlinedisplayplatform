@@ -1,0 +1,48 @@
+/* 自定义loading样式 */
+.el-loading-spinner {
+	height: 100%;
+	top: 0 !important; // 覆盖 element-ui  默认的 50%    因为此处设置了height:100%,所以不设置的话，会只显示一半，因为被top顶下去了
+
+	.loader {
+		position: relative;
+		width: 10px;
+		height: 10px;
+		top: 50%;
+		left: 49.7%;
+		transform: rotate(45deg);
+
+		&::after,
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 10px;
+			height: 10px;
+			border-radius: 10px;
+			transform: translate(-50%, -50%);
+			animation: animate 1s ease-in-out infinite;
+		}
+
+		@keyframes animate {
+			50% {
+				width: 20px;
+			}
+		}
+
+		&::after {
+			box-shadow: 10px 10px #f9ca24, -10px -10px #badc58;
+		}
+		&::before {
+			box-shadow: 10px 10px #eb4d4b, -10px -10px #22a6b3;
+			transform: translate(-50%, -50%) rotate(90deg);
+		}
+	}
+
+  .el-loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 150%);
+  }
+}

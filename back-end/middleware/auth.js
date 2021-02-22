@@ -3,7 +3,7 @@ const { verify } = require("../utils/tools");
 // 判断登录状态中间件
 exports.auth = async (req, res, next) => {
 	res.set("content-type", "application/json;cahrset=utf-8");
-	const token = req.get("X-Access-Token");
+	const token = req.get("Authorization");
 	try {
 		const result = verify(token);
 		// token验证成功，进行下一步
