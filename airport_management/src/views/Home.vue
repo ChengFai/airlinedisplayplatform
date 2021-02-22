@@ -69,7 +69,6 @@ export default {
 	align-items: center;
 	padding-left: 0;
 	box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .15);
-  z-index: 9999;
 
 	.info_box {
 		width: 320px;

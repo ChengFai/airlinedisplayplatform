@@ -1,20 +1,47 @@
 const airportsModel = require("../models/airports");
 
-// 处理获取全部机场列表请求
-exports.list = async (req, res, next) => {
+// 处理获取热门机场列表请求
+exports.getHot = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");
-	const result = await airportsModel.findList();
+	const result = await airportsModel.findHot();
 	if (result) {
-    // 全部列表获取成功
+		// 热门列表获取成功
 		res.render("success", {
 			data: JSON.stringify(result),
-			msg: "成功获取全部机场列表"
+			msg: "成功获取热门机场列表"
 		});
 	} else {
-    // 全部列表获取失败
+		// 热门列表获取失败
 		res.render("error", {
 			data: "null",
-			msg: "获取全部机场列表失败"
+			msg: "获取热门机场列表失败"
+		});
+	}
+};
+
+// 处理机场列表请求
+exports.list = async (req, res, next) => {
+	res.set("content-type", "application/json;charset=utf-8");
+	const queryInfo = req.body.queryInfo || "";
+	const queryPage = req.body.queryPage || 1;
+	const querySize = req.body.querySize || 5;
+	const queryInfoReg = new RegExp(queryInfo, "i");
+	const result = await airportsModel.findList(queryInfoReg, queryPage, querySize);
+	const total = await airportsModel.findCount(queryInfoReg);
+	if (result) {
+		// 列表获取成功
+		res.render("success", {
+			data: JSON.stringify({
+				result,
+				total
+			}),
+			msg: "成功获取机场列表"
+		});
+	} else {
+		// 列表获取失败
+		res.render("error", {
+			data: "null",
+			msg: "获取机场列表失败"
 		});
 	}
 };

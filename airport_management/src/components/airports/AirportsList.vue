@@ -1,5 +1,6 @@
 <template>
 	<div class="list_container">
+		<!-- 首字母列表 -->
 		<div class="letter_list">
 			<span>按首字母查询</span>
 			<div
@@ -13,9 +14,11 @@
 		</div>
 		<ul class="ports_list">
 			<li v-for="(item, index) in letterList" :key="item">
+				<!-- 首字母标记 -->
 				<span class="letter" :id="item" :class="{ current: current == index }">
 					{{ item }}
 				</span>
+				<!-- 该首字母下机场 -->
 				<div :class="item">
 					<div
 						class="a_box"
@@ -135,7 +138,7 @@ export default {
 			color: @homeBlue;
 			font-size: 0.85rem;
 			margin-right: 15px;
-      margin-top: 5px;
+			margin-top: 5px;
 
 			&:hover {
 				background-color: @homeBlue;

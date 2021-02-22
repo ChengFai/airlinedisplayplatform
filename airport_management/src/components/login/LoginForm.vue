@@ -94,7 +94,6 @@ export default {
 				})
 				if (result.data.meta.status == 1) {
 					// 获得成功结果
-					this.$message({ type: "success", message: "登录成功！" })
 					const token = result.headers["x-access-token"] // 获取token
 					window.sessionStorage.setItem("token", token) // 将token存储在session中
 					this.$message({ type: "success", message: "登录成功" })

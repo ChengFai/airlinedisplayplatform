@@ -17,12 +17,15 @@ import {
 	Submenu,
 	Popover,
 	Avatar,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Card,
-  Tabs,
-  TabPane
+	Dropdown,
+	DropdownMenu,
+	DropdownItem,
+	Card,
+	Tabs,
+	TabPane,
+	Row,
+	Col,
+	Pagination
 } from "element-ui";
 
 Vue.use(Button);
@@ -45,6 +48,9 @@ Vue.use(Avatar);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
-Vue.use(Card)
+Vue.use(Card);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Pagination);
