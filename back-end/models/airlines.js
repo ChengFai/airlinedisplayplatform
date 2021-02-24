@@ -6,8 +6,13 @@ exports.findList = () => {
 };
 
 // 从数据库根据启航机场获取全部航班列表
-exports.findByAirport = startAirport => {
+exports.findByFromAirport = startAirport => {
 	return Airlines.find({ startAirport });
+};
+
+// 从数据库根据抵达机场获取全部航班列表
+exports.findByToAirport = endAirport => {
+	return Airlines.find({ endAirport });
 };
 
 // 从数据库根据出发地获取全部航班列表

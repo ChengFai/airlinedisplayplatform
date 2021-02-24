@@ -5,21 +5,23 @@ const Login = () => import("../views/Login");
 const Home = () => import("../views/Home");
 const Map = () => import("../views/map/Map");
 const Airports = () => import("../views/airports/Airports");
+const DetailPage = () => import("../views/airports/DetailPage");
 const Airlines = () => import("../views/airlines/Airlines");
 
 Vue.use(VueRouter);
 
 const routes = [
 	{ path: "/", redirect: "/login" },
-	{ path: "/login", component: Login },
+	{ path: "/login", meta: { title: "登录" }, component: Login },
 	{
 		path: "/home",
 		component: Home,
 		redirect: "/airports",
 		children: [
-			{ path: "/map", component: Map },
-			{ path: "/airports", component: Airports },
-			{ path: "/airlines", component: Airlines }
+			{ path: "/map", meta: { title: "地图" }, component: Map },
+			{ path: "/airports", meta: { title: "机场查询" }, component: Airports },
+			{ path: "/detail/:name", meta: { title: "详情页", noAlive: true }, component: DetailPage, props: true },
+			{ path: "/airlines", meta: { title: "航班动态" }, component: Airlines }
 		]
 	}
 ];
@@ -32,6 +34,7 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
+	document.title = to.meta.title || "airports_management";
 	if (to.path == "/login") return next(); // 如果访问登录页则继续
 	const tokenStr = window.sessionStorage.getItem("token");
 	if (!tokenStr) return next("/login"); // 如果没有token访问其他页跳转至登录页

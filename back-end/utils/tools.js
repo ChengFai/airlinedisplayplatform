@@ -3,6 +3,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { token } = require("morgan");
+const Pinyin = require("../utils/ChinesePY");
 
 // 将密码加密为hash
 exports.hash = password => {
@@ -40,4 +41,14 @@ exports.verify = token => {
 	const publicKey = fs.readFileSync(path.join(__dirname, "../keys/rsa_public_key.pem"));
 	const result = jwt.verify(token, publicKey);
 	return result;
+};
+
+// 将数组添加拼音并去重 arr:[{name:"xxx"}] => [{name:"xxx",first:"X"}]
+exports.arrAddFirst = arr => {
+	for (item of arr) {
+		let { name } = item;
+		let first = Pinyin.GetJP(name)[0];
+		item.first = first.toUpperCase();
+	}
+	return arr
 };

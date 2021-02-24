@@ -45,7 +45,7 @@ const airlinesSchema = mongoose.Schema({
 	startTime: String, // 启航时间
 	startAirport: String, // 启航机场
 	endTime: String, // 抵达时间
-	endAitport: String, // 抵达机场
+	endAirport: String, // 抵达机场
 	date: Array, // 周计划
 	ontimeRate: String, // 准时率
 	from: String, // 出发地

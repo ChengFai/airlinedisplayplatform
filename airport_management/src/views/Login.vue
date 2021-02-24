@@ -58,6 +58,8 @@ export default {
 	methods: {
 		switchFunc() {
 			this.isSignin = !this.isSignin
+			if (this.isSignin) document.title = "登录"
+			else document.title = "注册"
 		},
 	},
 	components: {
@@ -130,9 +132,9 @@ label {
 				&::after {
 					background: linear-gradient(to right, transparent, @signinColor);
 				}
-        &::before {
+				&::before {
 					background: linear-gradient(to left, transparent, @signinColor);
-        }
+				}
 			}
 		}
 	}
@@ -153,7 +155,7 @@ label {
 				&::after {
 					background: linear-gradient(to right, transparent, @signupColor);
 				}
-        &::before {
+				&::before {
 					background: linear-gradient(to left, transparent, @signupColor);
 				}
 			}

@@ -25,7 +25,9 @@ import {
 	TabPane,
 	Row,
 	Col,
-	Pagination
+	Pagination,
+	Dialog,
+	PageHeader
 } from "element-ui";
 
 Vue.use(Button);
@@ -54,3 +56,5 @@ Vue.use(TabPane);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Pagination);
+Vue.use(Dialog);
+Vue.use(PageHeader);

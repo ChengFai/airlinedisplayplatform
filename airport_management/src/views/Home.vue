@@ -38,7 +38,10 @@
 		<!-- 整体页面主体 -->
 		<el-main class="home_main">
 			<!-- 主体：子路由 -->
-			<router-view></router-view>
+			<keep-alive>
+				<router-view v-if="!$route.meta.noAlive"></router-view>
+			</keep-alive>
+			<router-view v-if="$route.meta.noAlive"></router-view>
 		</el-main>
 	</el-container>
 </template>
@@ -68,7 +71,7 @@ export default {
 	display: flex;
 	align-items: center;
 	padding-left: 0;
-	box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .15);
+	box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
 
 	.info_box {
 		width: 320px;

@@ -15,7 +15,9 @@
 					<p>按名称查询</p>
 					<name-query-container></name-query-container>
 				</el-tab-pane>
-				<el-tab-pane label="查找附近">查找附近</el-tab-pane>
+				<el-tab-pane label="查找附近">
+          <location-container></location-container>
+        </el-tab-pane>
 			</el-tabs>
 		</el-card>
 	</div>
@@ -26,6 +28,7 @@
 import AirportsList from "../../components/airports/AirportsList"
 import MapContainer from "../../components/airports/MapContainer"
 import NameQueryContainer from "../../components/airports/NameQueryContainer"
+import LocationContainer from "../../components/airports/LocationContainer"
 
 export default {
 	name: "Airports",
@@ -50,7 +53,8 @@ export default {
 	components: {
 		AirportsList,
 		MapContainer,
-		NameQueryContainer
+		NameQueryContainer,
+    LocationContainer
 	},
 }
 </script>
