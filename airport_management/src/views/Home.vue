@@ -36,10 +36,13 @@
 			</div>
 		</el-header>
 		<!-- 整体页面主体 -->
-		<el-main class="home_main">
+		<el-main class="home_main" :style="mapStyle()">
 			<!-- 主体：子路由 -->
 			<keep-alive>
-				<router-view v-if="!$route.meta.noAlive"></router-view>
+				<router-view
+					:style="viewStyle()"
+					v-if="!$route.meta.noAlive"
+				></router-view>
 			</keep-alive>
 			<router-view v-if="$route.meta.noAlive"></router-view>
 		</el-main>
@@ -57,6 +60,24 @@ export default {
 			window.sessionStorage.clear()
 			this.$message({ type: "success", message: "退出登录成功" })
 			this.$router.push("/login")
+		},
+		mapStyle() {
+			if (this.$route.path == "/map") {
+				return {
+					padding: 0,
+				}
+			} else {
+				return ""
+			}
+		},
+		viewStyle() {
+			if (this.$route.path == "/map") {
+        return {
+          height: "100%"
+        }
+			} else {
+				return ""
+			}
 		},
 	},
 }

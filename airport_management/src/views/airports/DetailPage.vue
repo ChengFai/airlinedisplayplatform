@@ -3,13 +3,21 @@
 		<el-page-header @back="goBack" :content="name"> </el-page-header>
 		<el-card>
 			<el-tabs type="border-card">
-				<el-tab-pane :label="`从${name}到其他机场`" @click="getByFrom">
+				<el-tab-pane :label="`从${name}到其他机场`">
 					<!-- 根据启航机场列表组件 -->
-					<from-to-list :cAirportsList="listByFrom"></from-to-list>
+					<from-to-list
+						:cAirport="name"
+						:cAirportsList="listByFrom"
+						:cIsFrom="true"
+					></from-to-list>
 				</el-tab-pane>
-				<el-tab-pane :label="`从其他机场到${name}`" @click="getByTo">
+				<el-tab-pane :label="`从其他机场到${name}`">
 					<!-- 根据抵达机场列表组件 -->
-					<from-to-list :cAirportsList="listByTo"></from-to-list>
+					<from-to-list
+						:cAirport="name"
+						:cAirportsList="listByTo"
+						:cIsFrom="false"
+					></from-to-list>
 				</el-tab-pane>
 			</el-tabs>
 		</el-card>
@@ -29,7 +37,7 @@ export default {
 	},
 	methods: {
 		goBack() {
-			this.$router.back(-1)
+			this.$router.push("/home")
 		},
 		async _getList(type) {
 			let result = []
@@ -71,6 +79,10 @@ export default {
 
 <style lang="less" scoped>
 .el-card {
+  width: 80%;
 	margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

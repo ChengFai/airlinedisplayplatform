@@ -25,7 +25,7 @@
 						v-for="(port, index) in getListByLetter(item)"
 						:key="index"
 					>
-						<a href="">{{ port.name }}</a>
+						<a href="" @click="goToDetail(port.name, $event)">{{ port.name }}</a>
 					</div>
 				</div>
 			</li>
@@ -68,6 +68,15 @@ export default {
 			let letterArr = this.cAirportsList.filter((item) => item.first == letter)
 			return letterArr
 		},
+    goToDetail(name, e) {
+      // 取消默认事件
+			if (e && e.preventDefault) {
+				e.preventDefault() //非IE浏览器
+			} else {
+				window.event.returnValue = false //IE浏览器
+			}
+      this.$router.push(`/detail/${name}`)
+    }
 	},
 }
 </script>

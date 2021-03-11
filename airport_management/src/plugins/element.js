@@ -27,7 +27,8 @@ import {
 	Col,
 	Pagination,
 	Dialog,
-	PageHeader
+	PageHeader,
+	Alert
 } from "element-ui";
 
 Vue.use(Button);
@@ -58,3 +59,4 @@ Vue.use(Col);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(PageHeader);
+Vue.use(Alert);

@@ -4,15 +4,12 @@
 			<!-- 标签列 -->
 			<el-tabs tab-position="left">
 				<el-tab-pane class="tab_item" label="热门机场">
-					<p>热门机场</p>
 					<airports-list :cAirportsList="hotAirportList"></airports-list>
 				</el-tab-pane>
 				<el-tab-pane label="按省份查询">
-          <p>按省份查询</p>
           <map-container></map-container>
         </el-tab-pane>
 				<el-tab-pane label="按名称查询">
-					<p>按名称查询</p>
 					<name-query-container></name-query-container>
 				</el-tab-pane>
 				<el-tab-pane label="查找附近">

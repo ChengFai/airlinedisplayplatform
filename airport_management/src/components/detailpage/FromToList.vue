@@ -1,35 +1,59 @@
 <template>
 	<div class="list_container">
-		<!-- 首字母列表 -->
-		<div class="letter_list">
-			<span>按首字母查询</span>
-			<div
-				class="a_box"
-				v-for="(item, index) in letterList"
-				:key="item"
-				@click="hrefClick(index)"
-			>
-				<a :href="'#' + item">{{ item }}</a>
-			</div>
-		</div>
-		<ul class="ports_list">
-			<li v-for="(item, index) in letterList" :key="item">
-				<!-- 首字母标记 -->
-				<span class="letter" :id="item" :class="{ current: current == index }">
-					{{ item }}
-				</span>
-				<!-- 该首字母下机场 -->
-				<div :class="item">
-					<div
-						class="a_box"
-						v-for="(port, index) in getListByLetter(item)"
-						:key="index"
-					>
-						<a href="">{{ port.name }}</a>
-					</div>
+		<!-- 如果有数据显示列表 -->
+		<div v-if="haveData">
+			<!-- 首字母列表 -->
+			<div class="letter_list">
+				<span>按首字母查询</span>
+				<div
+					class="a_box"
+					v-for="(item, index) in letterList"
+					:key="item"
+					@click="hrefClick(index)"
+				>
+					<a :href="'#' + item">{{ item }}</a>
 				</div>
-			</li>
-		</ul>
+			</div>
+			<ul class="ports_list">
+				<li v-for="(item, index) in letterList" :key="item">
+					<!-- 首字母标记 -->
+					<span
+						class="letter"
+						:id="item"
+						:class="{ current: current == index }"
+					>
+						{{ item }}
+					</span>
+					<!-- 该首字母下机场 -->
+					<div :class="item">
+						<div
+							class="a_box"
+							v-for="(port, index) in getListByLetter(item)"
+							:key="index"
+						>
+							<a
+								href=""
+								v-if="cIsFrom"
+								@click="toDetailClick(cAirport, port.name, $event)"
+							>
+								{{ port.name }}
+							</a>
+							<a
+								href=""
+								v-else
+								@click="toDetailClick(port.name, cAirport, $event)"
+							>
+								{{ port.name }}
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 没有数据显示info -->
+		<div v-else>
+			<el-alert title="暂无数据" type="info" :closable="false"></el-alert>
+		</div>
 	</div>
 </template>
 
@@ -54,10 +78,19 @@ export default {
 			letterArr = letterArr.filter((item) => item !== "")
 			return letterArr
 		},
+		haveData() {
+			return this.cAirportsList.length > 0
+		},
 	},
 	props: {
 		cAirportsList: {
 			type: Array,
+		},
+		cAirport: {
+			type: String,
+		},
+		cIsFrom: {
+			type: Boolean,
 		},
 	},
 	methods: {
@@ -67,6 +100,21 @@ export default {
 		getListByLetter(letter) {
 			let letterArr = this.cAirportsList.filter((item) => item.first == letter)
 			return letterArr
+		},
+		toDetailClick(start, end, e) {
+			// 取消默认事件
+			if (e && e.preventDefault) {
+				e.preventDefault() //非IE浏览器
+			} else {
+				window.event.returnValue = false //IE浏览器
+			}
+			this.$router.push({
+				name: "moredetail",
+				params: {
+					start,
+					end,
+				},
+			})
 		},
 	},
 }
@@ -90,7 +138,6 @@ export default {
 		cursor: pointer;
 
 		a {
-			display: block;
 			width: 100%;
 			height: 100%;
 			display: flex;
