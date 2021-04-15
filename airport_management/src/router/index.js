@@ -17,7 +17,7 @@ const routes = [
 	{
 		path: "/home",
 		component: Home,
-		redirect: "/airports",
+		redirect: "/map",
 		children: [
 			{ path: "/map", meta: { title: "地图" }, component: Map },
 			{ path: "/airports", meta: { title: "机场查询" }, component: Airports },

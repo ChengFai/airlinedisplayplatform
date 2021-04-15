@@ -28,7 +28,10 @@ import {
 	Pagination,
 	Dialog,
 	PageHeader,
-	Alert
+	Alert,
+	Select,
+	Option,
+	DatePicker
 } from "element-ui";
 
 Vue.use(Button);
@@ -60,3 +63,6 @@ Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(PageHeader);
 Vue.use(Alert);
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(DatePicker);

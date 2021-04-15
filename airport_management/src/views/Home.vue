@@ -15,7 +15,7 @@
 				mode="horizontal"
 				background-color="#f5f6fa"
 				active-text-color="#0097e6"
-				default-active="/airports"
+				:default-active="this.$route.path"
 				router
 			>
 				<el-menu-item index="/map">地图</el-menu-item>

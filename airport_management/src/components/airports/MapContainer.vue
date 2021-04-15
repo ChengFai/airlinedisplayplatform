@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<el-alert title='请使用右上角的"绘制点"按钮单机省份开始查询' type="info" :closable="false"></el-alert>
 		<div id="viewDiv" v-loading="loading"></div>
 		<el-table :data="info" border stripe v-if="showTable">
 			<el-table-column type="index" label="#"></el-table-column>
@@ -275,6 +276,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-alert {
+  margin-bottom: 10px;
+}
 #viewDiv {
 	height: 400px;
 }

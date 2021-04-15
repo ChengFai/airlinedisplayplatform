@@ -59,7 +59,7 @@
 			width="50%"
 		>
 			<div class="dialogmap_container">
-				<div v-loading="dialogLoading" id="dialogViewDiv"></div>
+				<div v-loading="dialogLoading" id="dialogViewDiv1"></div>
 			</div>
 		</el-dialog>
 	</div>
@@ -130,7 +130,7 @@ export default {
 						})
 						// 对话框视图容器
 						const dialogView = new MapView({
-							container: "dialogViewDiv",
+							container: "dialogViewDiv1",
 							map: dialogMap,
 							center: [x, y],
 							zoom: 13,
@@ -172,7 +172,7 @@ export default {
 	margin-top: 20px;
 	margin-left: auto;
 }
-#dialogViewDiv {
+#dialogViewDiv1 {
 	height: 400px;
 	width: 100%;
 }

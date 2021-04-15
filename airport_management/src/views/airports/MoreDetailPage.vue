@@ -53,9 +53,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-main {
+  height: 100%;
+}
 .el-card {
 	margin-top: 20px;
-  position: absolute;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
 }

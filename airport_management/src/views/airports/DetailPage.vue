@@ -37,7 +37,7 @@ export default {
 	},
 	methods: {
 		goBack() {
-			this.$router.push("/home")
+			this.$router.push("/airports")
 		},
 		async _getList(type) {
 			let result = []
