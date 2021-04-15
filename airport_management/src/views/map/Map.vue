@@ -3,12 +3,8 @@
 		<el-container>
 			<el-aside>
 				<el-tabs type="border-card">
-					<el-tab-pane label="航班实时">
-            实时组件
-          </el-tab-pane>
-					<el-tab-pane label="航线查询">
-            航班查询组件
-          </el-tab-pane>
+					<el-tab-pane label="航班实时"> 实时组件 </el-tab-pane>
+					<el-tab-pane label="航线查询"> 航班查询组件 </el-tab-pane>
 				</el-tabs>
 			</el-aside>
 			<el-main>
@@ -20,6 +16,8 @@
 
 <script>
 import ShowTrail from "../../utils/showPolylineTrail"
+import TimeTool from "../../utils/TimeTool"
+
 export default {
 	name: "Map",
 	data() {

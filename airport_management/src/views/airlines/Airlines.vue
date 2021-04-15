@@ -115,7 +115,7 @@
 
 <script>
 import AirlinesList from "../../components/airlines/AirlinesList"
-import GetWeek from "../../utils/GetWeek"
+import TimeTool from "../../utils/TimeTool"
 
 export default {
 	name: "Airlines",
@@ -208,7 +208,7 @@ export default {
 		dateObj(val, oldVal) {
 			if (val) {
 				const str = val.toString().slice(0, 3)
-				this.query.queryInfo.weekday = GetWeek.getWeekNumb(str)
+				this.query.queryInfo.weekday = TimeTool.getWeekNumb(str)
 			} else {
         this.query.queryInfo.weekday = ""
       }

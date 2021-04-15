@@ -19,5 +19,9 @@ export default {
 				console.log("星期类型错误");
 				return null;
 		}
-	}
+	},
+  getTime() {
+    const date = new Date();
+    console.log(date.toLocaleTimeString());
+  }
 };
