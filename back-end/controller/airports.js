@@ -19,6 +19,25 @@ exports.getHot = async (req, res, next) => {
 	}
 };
 
+// 处理获取全部机场列表请求
+exports.getAll = async (req, res, next) => {
+	res.set("content-type", "application/json;charset=utf-8");
+	const result = await airportsModel.findAll();
+	if (result) {
+		// 热门列表获取成功
+		res.render("success", {
+			data: JSON.stringify(result),
+			msg: "成功获取全部机场列表"
+		});
+	} else {
+		// 热门列表获取失败
+		res.render("error", {
+			data: "null",
+			msg: "获取全部机场列表失败"
+		});
+	}
+};
+
 // 处理机场列表请求
 exports.list = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");

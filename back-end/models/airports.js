@@ -5,6 +5,11 @@ exports.findHot = () => {
 	return Airports.find();
 };
 
+// 从数据库获取所有机场列表
+exports.findAll = () => {
+	return Airports.find();
+};
+
 // 从数据库获取机场列表(关键词正则，页码，每页数据量)
 exports.findList = (queryInfoReg, queryPage, querySize) => {
 	return Airports.find({ name: { $regex: queryInfoReg } }) // 查询包含关键字
