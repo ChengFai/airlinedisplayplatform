@@ -141,7 +141,7 @@ exports.findByQuery = async (req, res, next) => {
 	if (from !== "") query.from = from;
 	if (to !== "") query.to = to;
 	if (numb !== "") query.numb = numb;
-  if(weekday !== "") query["date." + weekday] = 1
+	if (weekday !== "") query["date." + weekday] = 1;
 	const { queryPage, querySize } = req.body;
 	console.log(query);
 	const result = await airlinesModel.findByQuery(query, queryPage, querySize);
@@ -183,6 +183,61 @@ exports.findCitys = async (req, res, next) => {
 		res.render("error", {
 			data: "null",
 			msg: "获取城市列表失败"
+		});
+	}
+};
+
+// 处理根据时间获取航班
+exports.findByTime = async (req, res, next) => {
+	res.set("content-type", "application/json;charset=utf-8");
+	const { time, page } = req.query;
+	const result = await airlinesModel.findByTime(time, page).data;
+	const total = await airlinesModel.findByTime(time, page).total;
+	if (result) {
+		res.render("success", {
+			data: JSON.stringify({ result, total }),
+			msg: "根据时间获取航班成功"
+		});
+	} else {
+		res.render("error", {
+			data: "null",
+			msg: "根据时间获取航班失败"
+		});
+	}
+};
+
+// 处理根据从/到某个城市/机场的条件获取航班
+exports.findByMap = async (req, res, next) => {
+	res.set("content-type", "application/json;charset=utf-8");
+	const { byFrom, byCity, query } = req.query;
+	console.log(typeof byFrom);
+	let result = "";
+	if (byFrom == "true") {
+		if (byCity == "true") {
+			// 从某个城市出发
+			result = await airlinesModel.findByFrom(query);
+		} else {
+			// 从某个机场出发
+			result = await airlinesModel.findByFromAirport(query);
+		}
+	} else {
+		if (byCity == "true") {
+			// 到某个城市
+			result = await airlinesModel.findByTo(query);
+		} else {
+			// 到某个机场
+			result = await airlinesModel.findByToAirport(query);
+		}
+	}
+	if (result !== "") {
+		res.render("success", {
+			data: JSON.stringify(result),
+			msg: "获取列表成功"
+		});
+	} else {
+		res.render("error", {
+			data: "null",
+			msg: "获取列表失败"
 		});
 	}
 };

@@ -98,8 +98,16 @@ export default {
 	},
 
 	// 改变样式
-	changeStyle(viewer, oldId,id) {
-    let entity = this.viewer.entities.getById(id);
+	changeStyle(viewer, oldId, id) {
+		if (oldId !== "") { // 恢复样式
+			let oldEntity = viewer.entities.getById(oldId);
+			oldEntity.polyline.width = 1;
+			oldEntity.polyline.material = new Cesium.PolylineDashMaterialProperty({
+				color: new Cesium.Color(255 / 255, 249 / 255, 0, 0.2)
+			});;
+		}
+    // 高亮显示
+		let entity = viewer.entities.getById(id);
 		// console.log(entity);
 		entity.polyline.width = 5;
 		entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({

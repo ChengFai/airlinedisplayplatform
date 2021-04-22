@@ -57,7 +57,7 @@ export default {
 			total: 0, // 数据总量
 			page: 1, // 当前页数
 			viewer: {},
-      queryId: "" // 记录地图中id查询得上一个id，用于回归样式
+			queryId: "", // 记录地图中id查询得上一个id，用于回归样式
 		}
 	},
 	methods: {
@@ -125,7 +125,8 @@ export default {
 			}
 		},
 		cardClick(id) {
-			this.queryId = id // 记录查询id
+			ShowTrail.changeStyle(this.viewer, this.queryId, id)
+      this.queryId = id // 记录查询id
 		},
 	},
 	created() {

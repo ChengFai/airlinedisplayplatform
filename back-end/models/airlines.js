@@ -50,3 +50,14 @@ exports.findCitys = () => {
 	return Airlines.find().select("from to");
 };
 
+// 从数据库获取时间点上正在飞行的飞机
+exports.findByTime = (time, queryPage) => {
+	const data = Airlines.find({ startTime: { $lt: time }, endTime: { $gt: time } })
+		.skip((parseInt(queryPage) - 1) * 200) // 默认每次200条
+		.limit(200);
+	const total = Airlines.find({ startTime: { $lt: time }, endTime: { $gt: time } }).count();
+	return {
+		data,
+		total
+	};
+};
