@@ -22,7 +22,7 @@
 		<el-table-column prop="startTime" label="起飞时间" sortable width="300">
 			<template slot-scope="scope">
 				<div class="time_column">
-					<el-row :gutter="1" style="width: 100%">
+					<el-row :gutter="1">
 						<el-col :span="10">
 							<span>
 								<p class="time_text">{{ scope.row.startTime }}</p>
@@ -30,7 +30,10 @@
 							</span>
 						</el-col>
 						<el-col :span="4" class="arrow_col">
-							<div class="arrow"></div>
+							<div
+								class="arrow"
+								style="margin-top: 50%; transform: translateY(-50%)"
+							></div>
 						</el-col>
 						<el-col :span="10">
 							<span>
@@ -49,7 +52,15 @@
 						<el-col :span="8" :offset="2">
 							<div>{{ scope.row.from }}</div>
 						</el-col>
-						<el-col :span="4" class="arrow_col">
+						<el-col
+							:span="6"
+							class="arrow_col"
+							style="
+								display: flex;
+								justify-content: center;
+								align-items: center;
+							"
+						>
 							<div class="arrow"></div>
 						</el-col>
 						<el-col :span="8">

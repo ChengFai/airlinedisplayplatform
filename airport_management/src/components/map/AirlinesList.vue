@@ -77,7 +77,6 @@ export default {
 }
 .el-card {
 	margin-bottom: 5px;
-	cursor: pointer;
 }
 
 .card-title {
@@ -85,6 +84,7 @@ export default {
 	font-weight: 600;
 	color: @homeBlue;
 	margin-top: 0;
+  cursor: pointer;
 }
 
 .card-time {

@@ -20,12 +20,13 @@
 						<airlines-list
 							:c-list="renderAirlinesList"
 							:c-time="nowTime"
-              @cardclick="cardClick"
+							@cardclick="cardClick"
 						></airlines-list>
 					</el-tab-pane>
 					<el-tab-pane label="航线查询">
 						<query-airlines-list
 							@getQueryList="getQueryList"
+							@cardclick="cardClick"
 						></query-airlines-list>
 					</el-tab-pane>
 				</el-tabs>
@@ -56,6 +57,7 @@ export default {
 			total: 0, // 数据总量
 			page: 1, // 当前页数
 			viewer: {},
+      queryId: "" // 记录地图中id查询得上一个id，用于回归样式
 		}
 	},
 	methods: {
@@ -122,14 +124,13 @@ export default {
 				)
 			}
 		},
-    cardClick(id) {
-      console.log(id);
-      console.log(this.viewer.entities.getById(id));
-    }
+		cardClick(id) {
+			this.queryId = id // 记录查询id
+		},
 	},
 	created() {
-    this.nowTime = TimeTool.getTime()
-    // 每隔5分钟更新一次时间
+		this.nowTime = TimeTool.getTime()
+		// 每隔5分钟更新一次时间
 		setInterval(() => {
 			this.nowTime = TimeTool.getTime()
 			console.log(this.nowTime)

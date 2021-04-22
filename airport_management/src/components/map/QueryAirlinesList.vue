@@ -28,7 +28,11 @@
 				></el-button>
 			</el-input>
 		</div>
-		<airlines-list :cList="airlinesList" :cTime="nowTime"></airlines-list>
+		<airlines-list
+			:cList="airlinesList"
+			:cTime="nowTime"
+			@cardclick="cardClick"
+		></airlines-list>
 	</div>
 </template>
 
@@ -75,6 +79,9 @@ export default {
 		queryBtnClick() {
 			this._getAirlinesList()
 			this.nowTime = TimeTool.getTime()
+		},
+		cardClick(id) {
+			this.$emit("cardclick", id)
 		},
 	},
 	components: {

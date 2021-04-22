@@ -54,11 +54,11 @@ export default {
 			viewer.entities.add({
 				// 尾迹线
 				description: "trail-line",
-				name: startName + " -> " + destinationName + " " + airlineNumb + "人",
+				// name: startName + " -> " + destinationName + " " + airlineNumb + "人",
 				polyline: {
 					width: 3,
 					positions: curLinePointsArr,
-					material: new Cesium.PolylineTrailLinkMaterialProperty(Cesium.Color.fromBytes(255, 165, 0, 50), 3000)
+					material: new Cesium.PolylineTrailLinkMaterialProperty(new Cesium.Color.fromBytes(255, 165, 0, 50), 3000)
 				}
 			});
 
@@ -69,8 +69,8 @@ export default {
 				position: Cesium.Cartesian3.fromDegrees(data_geo[startName][0], data_geo[startName][1]),
 				billboard: {
 					image: require("../assets/images/from_airport_logo.png"),
-					width: 15,
-					height: 15
+					width: 20,
+					height: 20
 				}
 			});
 
@@ -95,5 +95,16 @@ export default {
 				}
 			});
 		}
+	},
+
+	// 改变样式
+	changeStyle(viewer, oldId,id) {
+    let entity = this.viewer.entities.getById(id);
+		// console.log(entity);
+		entity.polyline.width = 5;
+		entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+			glowPower: 0.5,
+			color: Cesium.Color.BLUE
+		});
 	}
 };
