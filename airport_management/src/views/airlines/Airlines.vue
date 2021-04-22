@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div @keydown.enter="queryBtnClick">
 		<el-card>
 			<!-- 查询容器 -->
 			<el-container class="query_container">
@@ -18,6 +18,7 @@
 						<el-select
 							v-model="query.queryInfo.from"
 							filterable
+              clearable
 							placeholder="城市名称"
 							size="small"
 						>
@@ -31,17 +32,10 @@
 							</el-option>
 						</el-select>
 						<b style="cursor: pointer" @click="inputChange">换</b>
-						<!-- <el-input
-							size="small"
-							placeholder="中文/拼音"
-							v-model="query.queryInfo.to"
-							clearable
-						>
-							<i slot="prefix" class="el-input__icon el-icon-search"></i>
-						</el-input> -->
 						<el-select
 							v-model="query.queryInfo.to"
 							filterable
+              clearable
 							placeholder="城市名称"
 							size="small"
 						>
@@ -187,7 +181,6 @@ export default {
 			this.isLoading = true
 			this._getAirlinesList()
 		},
-		queryBtnClick1() {},
 		handleCurrentChange(newPage) {
 			this.query.queryPage = newPage
 			this._getAirlinesList()

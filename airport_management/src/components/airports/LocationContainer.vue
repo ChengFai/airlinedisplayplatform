@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div @keydown.enter="getAirports(searchInput)">
 		<!-- 搜索框 -->
 		<el-row style="margin: 10px 0">
 			<el-col :span="8">

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div @keydown.enter="searchClick">
 		<!-- 搜索框 -->
 		<el-row class="input_row">
 			<el-col :span="8">

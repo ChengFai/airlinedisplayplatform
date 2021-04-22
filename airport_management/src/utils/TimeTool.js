@@ -20,8 +20,15 @@ export default {
 				return null;
 		}
 	},
-  getTime() {
-    const date = new Date();
-    console.log(date.toLocaleTimeString());
-  }
+	getTime() {
+		const date = new Date();
+		const hour = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours()}`;
+		const min = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
+		return hour + ":" + min;
+	},
+	timeToNumb(timeStr) {
+		// 格式：19:20
+		const array = timeStr.split(":");
+		return parseInt(array[0]) + parseInt(array[1]) * 0.01;
+	}
 };

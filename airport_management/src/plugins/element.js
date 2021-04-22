@@ -31,7 +31,11 @@ import {
 	Alert,
 	Select,
 	Option,
-	DatePicker
+	DatePicker,
+	Backtop,
+	Icon,
+	Radio,
+	Progress
 } from "element-ui";
 
 Vue.use(Button);
@@ -66,3 +70,7 @@ Vue.use(Alert);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(DatePicker);
+Vue.use(Backtop);
+Vue.use(Icon);
+Vue.use(Radio);
+Vue.use(Progress);
