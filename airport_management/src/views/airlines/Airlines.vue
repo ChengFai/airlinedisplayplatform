@@ -7,18 +7,10 @@
 				<el-main>
 					<div class="line_query_box">
 						<span>航线查询</span>
-						<!-- <el-input
-							size="small"
-							placeholder="中文/拼音"
-							v-model="query.queryInfo.from"
-							clearable
-						>
-							<i slot="prefix" class="el-input__icon el-icon-search"></i>
-						</el-input> -->
 						<el-select
-							v-model="query.queryInfo.from"
+							v-model="temp.from"
 							filterable
-              clearable
+							clearable
 							placeholder="城市名称"
 							size="small"
 						>
@@ -33,9 +25,9 @@
 						</el-select>
 						<b style="cursor: pointer" @click="inputChange">换</b>
 						<el-select
-							v-model="query.queryInfo.to"
+							v-model="temp.to"
 							filterable
-              clearable
+							clearable
 							placeholder="城市名称"
 							size="small"
 						>
@@ -57,7 +49,7 @@
 						<el-input
 							size="small"
 							placeholder="航班号"
-							v-model="query.queryInfo.numb"
+							v-model="temp.numb"
 							clearable
 						>
 							<i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -146,6 +138,12 @@ export default {
 				querySize: 10,
 				queryPage: 1,
 			},
+			temp: {
+				to: "",
+				from: "",
+				numb: "",
+				weekday: "",
+			},
 			airlinesList: [],
 			total: 0,
 			isInit: true, // 当前想要初始化AirlinesList组件（处理初始化显示loading问题）
@@ -154,7 +152,7 @@ export default {
 	},
 	methods: {
 		async _getAirlinesList() {
-			// 获取航班列表
+      // 获取航班列表
 			const { data: result } = await this.$http.post(
 				"api/airlines/findbyquery",
 				this.query
@@ -179,6 +177,9 @@ export default {
 		},
 		queryBtnClick() {
 			this.isLoading = true
+      // this.query.queryInfo = this.temp
+			this.query.queryInfo = {...this.temp}
+      // Object.assign(this.query.queryInfo, this.temp)
 			this._getAirlinesList()
 		},
 		handleCurrentChange(newPage) {
@@ -186,9 +187,9 @@ export default {
 			this._getAirlinesList()
 		},
 		inputChange() {
-			const i = this.query.queryInfo.to
-			this.query.queryInfo.to = this.query.queryInfo.from
-			this.query.queryInfo.from = i
+			const i = this.temp.to
+			this.temp.to = this.temp.from
+			this.temp.from = i
 		},
 	},
 	created() {
@@ -201,11 +202,14 @@ export default {
 		dateObj(val, oldVal) {
 			if (val) {
 				const str = val.toString().slice(0, 3)
-				this.query.queryInfo.weekday = TimeTool.getWeekNumb(str)
+				this.temp.weekday = TimeTool.getWeekNumb(str)
 			} else {
-        this.query.queryInfo.weekday = ""
-      }
+				this.temp.weekday = ""
+			}
 		},
+    'query.queryInfo.from'(){
+      console.log(111);
+    }
 	},
 }
 </script>

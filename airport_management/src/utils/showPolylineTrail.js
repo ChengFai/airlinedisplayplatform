@@ -1,5 +1,3 @@
-const path = require("path");
-
 export default {
 	// 根据起点终点生成曲线
 	_generateCurve(startPoint, endPoint) {
@@ -28,11 +26,20 @@ export default {
 		if (!data) {
 			return;
 		}
+		let positionArr = []; /**------------------------------------------------------ */
 		for (let geoLine of data) {
 			let startName = geoLine.startAirport;
 			let destinationName = geoLine.endAirport;
 			let airlineNumb = geoLine.numb;
 			let id = geoLine._id;
+			positionArr.push({
+				x: data_geo[startName][0],
+				y: data_geo[startName][1]
+			});
+			positionArr.push({
+				x: data_geo[destinationName][0],
+				y: data_geo[destinationName][1]
+			});
 			// 用于拟合当前曲线的笛卡尔坐标点数组
 			let startPt = Cesium.Cartesian3.fromDegrees(data_geo[startName][0], data_geo[startName][1], 0);
 			let endPt = Cesium.Cartesian3.fromDegrees(data_geo[destinationName][0], data_geo[destinationName][1], 0);
@@ -95,18 +102,20 @@ export default {
 				}
 			});
 		}
+    console.log(positionArr);
 	},
 
 	// 改变样式
 	changeStyle(viewer, oldId, id) {
-		if (oldId !== "") { // 恢复样式
+		if (oldId !== "") {
+			// 恢复样式
 			let oldEntity = viewer.entities.getById(oldId);
 			oldEntity.polyline.width = 1;
 			oldEntity.polyline.material = new Cesium.PolylineDashMaterialProperty({
 				color: new Cesium.Color(255 / 255, 249 / 255, 0, 0.2)
-			});;
+			});
 		}
-    // 高亮显示
+		// 高亮显示
 		let entity = viewer.entities.getById(id);
 		// console.log(entity);
 		entity.polyline.width = 5;

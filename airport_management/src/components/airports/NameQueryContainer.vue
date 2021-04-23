@@ -3,7 +3,7 @@
 		<!-- 搜索框 -->
 		<el-row class="input_row">
 			<el-col :span="8">
-				<el-input placeholder="请输入内容" v-model="query.queryInfo">
+				<el-input placeholder="请输入内容" v-model="temp">
 					<el-button
 						slot="append"
 						icon="el-icon-search"
@@ -78,6 +78,7 @@ export default {
 				queryPage: 1,
 				querySize: 5,
 			},
+      temp: "", // 临时存放查询条件
 			airportList: [],
 			loading: false, // 表格加载
 			total: 0, // 查询数据总量
@@ -112,6 +113,7 @@ export default {
 		},
 		searchClick() {
 			this.query.queryPage = 1 // 重置页码
+      this.query.queryInfo = this.temp
 			this._getAirportsList()
 		},
 		mapBtnClick(point) {
