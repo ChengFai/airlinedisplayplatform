@@ -102,7 +102,7 @@ export default {
 				}
 			});
 		}
-    console.log(positionArr);
+		return positionArr;
 	},
 
 	// 改变样式

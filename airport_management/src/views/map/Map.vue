@@ -43,6 +43,7 @@ import AirlinesList from "../../components/map/AirlinesList"
 import QueryAirlinesList from "../../components/map/QueryAirlinesList"
 
 import ShowTrail from "../../utils/showPolylineTrail"
+import JsonToLayer from "../../utils/JsonToLayer"
 import TimeTool from "../../utils/TimeTool"
 
 import outlineFile from "../../assets/country.json"
@@ -113,7 +114,8 @@ export default {
 			)
 		},
 		getQueryList(list) {
-			ShowTrail.generateMigrationMap(this.viewer, list, this.data_geo)
+			const arr = ShowTrail.generateMigrationMap(this.viewer, list, this.data_geo)
+      console.log(JsonToLayer.jsonToFeatureSet(arr)); 
 		},
 		switchBtnClick(tab, e) {
 			if (tab.label == "航班实时") {

@@ -152,7 +152,7 @@ export default {
 	},
 	methods: {
 		async _getAirlinesList() {
-      // 获取航班列表
+			// 获取航班列表
 			const { data: result } = await this.$http.post(
 				"api/airlines/findbyquery",
 				this.query
@@ -177,9 +177,7 @@ export default {
 		},
 		queryBtnClick() {
 			this.isLoading = true
-      // this.query.queryInfo = this.temp
-			this.query.queryInfo = {...this.temp}
-      // Object.assign(this.query.queryInfo, this.temp)
+			this.query.queryInfo = { ...this.temp }
 			this._getAirlinesList()
 		},
 		handleCurrentChange(newPage) {
@@ -199,7 +197,7 @@ export default {
 		AirlinesList,
 	},
 	watch: {
-		dateObj(val, oldVal) {
+		dateObj(val) {
 			if (val) {
 				const str = val.toString().slice(0, 3)
 				this.temp.weekday = TimeTool.getWeekNumb(str)
@@ -207,9 +205,9 @@ export default {
 				this.temp.weekday = ""
 			}
 		},
-    'query.queryInfo.from'(){
-      console.log(111);
-    }
+		"query.queryInfo.from"() {
+			console.log(111)
+		},
 	},
 }
 </script>
