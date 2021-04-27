@@ -21,7 +21,7 @@ export default {
 	},
 
 	// 绘制
-	generateMigrationMap(viewer, data, data_geo) {
+	generateMigrationMap(viewer, data, data_geo, byFrom = 0) {
 		viewer.entities.removeAll();
 		if (!data) {
 			return;
@@ -32,14 +32,22 @@ export default {
 			let destinationName = geoLine.endAirport;
 			let airlineNumb = geoLine.numb;
 			let id = geoLine._id;
-			positionArr.push({
-				x: data_geo[startName][0],
-				y: data_geo[startName][1]
-			});
-			positionArr.push({
-				x: data_geo[destinationName][0],
-				y: data_geo[destinationName][1]
-			});
+			// 存储点坐标数据，用于显示热力图
+			if (byFrom == 2) {
+				// 根据“到”获取，展示出发地热地图
+				positionArr.push({
+					name: startName,
+					x: data_geo[startName][0],
+					y: data_geo[startName][1]
+				});
+			} else if (byFrom == 1) {
+				// 根据“从”获取，展示抵达地热地图
+				positionArr.push({
+					name: destinationName,
+					x: data_geo[destinationName][0],
+					y: data_geo[destinationName][1]
+				});
+			}
 			// 用于拟合当前曲线的笛卡尔坐标点数组
 			let startPt = Cesium.Cartesian3.fromDegrees(data_geo[startName][0], data_geo[startName][1], 0);
 			let endPt = Cesium.Cartesian3.fromDegrees(data_geo[destinationName][0], data_geo[destinationName][1], 0);
@@ -107,6 +115,7 @@ export default {
 
 	// 改变样式
 	changeStyle(viewer, oldId, id) {
+		let res = id;
 		if (oldId !== "") {
 			// 恢复样式
 			let oldEntity = viewer.entities.getById(oldId);
@@ -115,13 +124,24 @@ export default {
 				color: new Cesium.Color(255 / 255, 249 / 255, 0, 0.2)
 			});
 		}
-		// 高亮显示
-		let entity = viewer.entities.getById(id);
-		// console.log(entity);
-		entity.polyline.width = 5;
-		entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
-			glowPower: 0.5,
-			color: Cesium.Color.BLUE
-		});
+		if (oldId == id) {
+			// 恢复样式
+			let oldEntity = viewer.entities.getById(id);
+			oldEntity.polyline.width = 1;
+			oldEntity.polyline.material = new Cesium.PolylineDashMaterialProperty({
+				color: new Cesium.Color(255 / 255, 249 / 255, 0, 0.2)
+			});
+			res = "";
+		} else {
+			// 高亮显示
+			let entity = viewer.entities.getById(id);
+			// console.log(entity);
+			entity.polyline.width = 5;
+			entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+				glowPower: 0.5,
+				color: Cesium.Color.BLUE
+			});
+		}
+		return res;
 	}
 };

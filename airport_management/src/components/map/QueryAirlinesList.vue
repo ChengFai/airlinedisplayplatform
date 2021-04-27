@@ -71,7 +71,10 @@ export default {
 			})
 			if (result.meta.status == 1) {
 				this.airlinesList = result.data
-				this.$emit("getQueryList", this.airlinesList)
+				this.$emit("getQueryList", {
+					airlinesList: this.airlinesList,
+					byFrom: this.byFrom,
+				})
 			} else {
 				this.$message({ type: "success", message: result.meta.msg })
 			}

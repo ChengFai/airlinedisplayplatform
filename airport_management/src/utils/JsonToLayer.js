@@ -53,20 +53,23 @@ export default {
     ]
   */
 	jsonToFeatureSet(arr) {
-		let featureSet = this._featureSetTemplate;
+		// let featureSet = this._featureSetTemplate;
+		let features = [];
 		for (let i in arr) {
-			featureSet.features.push({
+			features.push({
 				attributes: {
-					FID: i,
+					ObjectID: i,
+					numb: 1,
 					x: Number(arr[i].x),
 					y: Number(arr[i].y)
 				},
 				geometry: {
+					type: "point",
 					x: Number(arr[i].x),
 					y: Number(arr[i].y)
 				}
 			});
 		}
-		return featureSet;
+		return features;
 	}
 };

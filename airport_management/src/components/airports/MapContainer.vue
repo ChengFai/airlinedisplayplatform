@@ -106,7 +106,6 @@ export default {
 					"esri/tasks/support/Query",
 					"esri/symbols/SimpleMarkerSymbol",
 					"esri/symbols/SimpleFillSymbol",
-					"dojo/dom",
 					"esri/Color",
 				],
 				{ css: true }
@@ -122,7 +121,6 @@ export default {
 						Query,
 						SimpleMarkerSymbol,
 						SimpleFillSymbol,
-						dom,
 						Color,
 					]) => {
 						// 图形图层

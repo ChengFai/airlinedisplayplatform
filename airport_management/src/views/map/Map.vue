@@ -33,6 +33,12 @@
 			</el-aside>
 			<el-main>
 				<div id="cesium-container"></div>
+				<div id="fixed-box">
+					<heat-map-container
+						class="heatmapcontainer"
+						:cfeatures="features"
+					></heat-map-container>
+				</div>
 			</el-main>
 		</el-container>
 	</div>
@@ -41,6 +47,7 @@
 <script>
 import AirlinesList from "../../components/map/AirlinesList"
 import QueryAirlinesList from "../../components/map/QueryAirlinesList"
+import HeatMapContainer from "../../components/map/HeatMapContainer"
 
 import ShowTrail from "../../utils/showPolylineTrail"
 import JsonToLayer from "../../utils/JsonToLayer"
@@ -59,6 +66,7 @@ export default {
 			page: 1, // 当前页数
 			viewer: {},
 			queryId: "", // 记录地图中id查询得上一个id，用于回归样式
+			features: [],
 		}
 	},
 	methods: {
@@ -114,10 +122,17 @@ export default {
 			)
 		},
 		getQueryList(list) {
-			const arr = ShowTrail.generateMigrationMap(this.viewer, list, this.data_geo)
-      console.log(JsonToLayer.jsonToFeatureSet(arr)); 
+			let { airlinesList, byFrom } = list
+		  byFrom = byFrom ? 1 : 2
+			const arr = ShowTrail.generateMigrationMap(
+				this.viewer,
+				airlinesList,
+				this.data_geo,
+				byFrom
+			)
+			this.features = JsonToLayer.jsonToFeatureSet(arr)
 		},
-		switchBtnClick(tab, e) {
+		switchBtnClick(tab) {
 			if (tab.label == "航班实时") {
 				ShowTrail.generateMigrationMap(
 					this.viewer,
@@ -127,8 +142,7 @@ export default {
 			}
 		},
 		cardClick(id) {
-			ShowTrail.changeStyle(this.viewer, this.queryId, id)
-      this.queryId = id // 记录查询id
+			this.queryId = ShowTrail.changeStyle(this.viewer, this.queryId, id) // 记录查询id
 		},
 	},
 	created() {
@@ -285,6 +299,7 @@ export default {
 	components: {
 		AirlinesList,
 		QueryAirlinesList,
+		HeatMapContainer,
 	},
 }
 </script>
@@ -329,5 +344,19 @@ export default {
 }
 .el-tabs {
 	height: 100%;
+}
+
+#fixed-box {
+	position: fixed;
+	height: 200px;
+	width: 400px;
+	right: 40px;
+	bottom: 40px;
+	background-color: white;
+
+	.heatmapcontainer {
+		width: 100%;
+		height: 100%;
+	}
 }
 </style>
