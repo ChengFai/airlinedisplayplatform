@@ -1,35 +1,47 @@
 <template>
 	<div>
 		<div id="heatmap-container"></div>
+		<div id="chart-container"></div>
 	</div>
 </template>
 
 <script>
 import { loadModules } from "esri-loader"
 
+import JsonToLayer from "../../utils/JsonToLayer"
+
 export default {
 	name: "HeatMapContainer",
 	data() {
 		return {
 			view: {},
+			features: [],
 		}
 	},
 	methods: {
 		_loadMap() {
-			loadModules(["esri/views/MapView", "esri/WebMap"], { css: true }).then(
-				([MapView, WebMap]) => {
-					const webmap = new WebMap({
+			loadModules(["esri/views/MapView", "esri/Map"], { css: true }).then(
+				([MapView, Map]) => {
+					const map = new Map({
 						basemap: "osm",
 					})
 					const view = new MapView({
-						map: webmap,
 						container: "heatmap-container",
+						map: map,
+						center: [106.75003910896959, 33.405550534701746],
+						zoom: 3,
 					})
 					this.view = view // vue托管
+					view.on("click", (e) => {
+						console.log(e.mapPoint)
+					})
 				}
 			)
 		},
 		_updateHeatMap() {
+			if (this.cfeatures == []) {
+				return false
+			}
 			loadModules(
 				[
 					"esri/layers/FeatureLayer",
@@ -37,20 +49,20 @@ export default {
 					"esri/Color",
 				],
 				{ css: true }
-			).then(([FeatureLayer, heatmapRendererCreator, Color]) => {
+			).then(async ([FeatureLayer, heatmapRendererCreator, Color]) => {
 				this.view.map.layers.removeAll()
 				let featureLayer = new FeatureLayer({
 					id: "heatmaplayer",
-					source: this.cfeatures,
+					source: this.features,
 					labelsVisible: false,
 					objectIdField: "ObjectID",
-          outFields: ["ObjectID"]
+					outFields: ["ObjectID"],
 				})
 				let heatmapParams = {
 					type: "heatmap",
 					layer: featureLayer,
 					view: this.view,
-					blurRadius: 3,
+					blurRadius: 4,
 					heatmapScheme: {
 						colors: [
 							new Color("rgba(0, 255, 150, 0)"),
@@ -60,19 +72,24 @@ export default {
 						],
 					},
 				}
-				heatmapRendererCreator.createRenderer(heatmapParams).then((res) => {
-					featureLayer.renderer = res.renderer
-          console.log(this.view);
-					this.view.map.layers.add(featureLayer)
-				})
+				const res = await heatmapRendererCreator.createRenderer(heatmapParams)
+				featureLayer.renderer = res.renderer
+				this.view.map.layers.add(featureLayer)
+				this.$emit("heatmapLoaded")
 			})
 		},
 	},
 	mounted() {
 		this._loadMap()
+		console.log()
+		if (this.cfeatures !== []) {
+			this.features = JsonToLayer.jsonToFeatureSet(this.cfeatures)
+			this._updateHeatMap()
+		}
 	},
 	watch: {
-		cfeatures() {
+		cfeatures(val) {
+			this.features = JsonToLayer.jsonToFeatureSet(val)
 			this._updateHeatMap()
 		},
 	},

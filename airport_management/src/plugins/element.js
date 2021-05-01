@@ -35,7 +35,8 @@ import {
 	Backtop,
 	Icon,
 	Radio,
-	Progress
+	Progress,
+	Drawer
 } from "element-ui";
 
 Vue.use(Button);
@@ -74,3 +75,4 @@ Vue.use(Backtop);
 Vue.use(Icon);
 Vue.use(Radio);
 Vue.use(Progress);
+Vue.use(Drawer);

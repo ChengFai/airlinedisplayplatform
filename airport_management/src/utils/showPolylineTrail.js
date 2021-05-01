@@ -26,7 +26,7 @@ export default {
 		if (!data) {
 			return;
 		}
-		let positionArr = []; /**------------------------------------------------------ */
+		let positionArr = [];
 		for (let geoLine of data) {
 			let startName = geoLine.startAirport;
 			let destinationName = geoLine.endAirport;
@@ -90,7 +90,7 @@ export default {
 			});
 
 			// viewer.entities.add({
-			// 	// 终点
+			//  终点
 			// 	description: "end-point",
 			// 	name: destinationName,
 			// 	position: Cesium.Cartesian3.fromDegrees(data_geo[destinationName][0], data_geo[destinationName][1]),
@@ -124,7 +124,7 @@ export default {
 				color: new Cesium.Color(255 / 255, 249 / 255, 0, 0.2)
 			});
 		}
-		if (oldId == id) {
+		if (oldId === id) {
 			// 恢复样式
 			let oldEntity = viewer.entities.getById(id);
 			oldEntity.polyline.width = 1;

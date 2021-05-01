@@ -33,12 +33,17 @@
 			</el-aside>
 			<el-main>
 				<div id="cesium-container"></div>
-				<div id="fixed-box">
+				<div id="fixed-box" @click="drawer = true">
+					<span>热</span>
+					<span>力</span>
+					<span>图</span>
+				</div>
+				<el-drawer title="热力图" :visible.sync="drawer">
 					<heat-map-container
-						class="heatmapcontainer"
+						class="heatmap-container"
 						:cfeatures="features"
 					></heat-map-container>
-				</div>
+				</el-drawer>
 			</el-main>
 		</el-container>
 	</div>
@@ -50,7 +55,6 @@ import QueryAirlinesList from "../../components/map/QueryAirlinesList"
 import HeatMapContainer from "../../components/map/HeatMapContainer"
 
 import ShowTrail from "../../utils/showPolylineTrail"
-import JsonToLayer from "../../utils/JsonToLayer"
 import TimeTool from "../../utils/TimeTool"
 
 import outlineFile from "../../assets/country.json"
@@ -67,6 +71,7 @@ export default {
 			viewer: {},
 			queryId: "", // 记录地图中id查询得上一个id，用于回归样式
 			features: [],
+			drawer: false, // 抽屉显示与否
 		}
 	},
 	methods: {
@@ -114,23 +119,25 @@ export default {
 		},
 		handleCurrentChange(page) {
 			this.page = page
-			this._getAirlinesByTime()
-			ShowTrail.generateMigrationMap(
-				this.viewer,
-				this.renderAirlinesList,
-				this.data_geo
-			)
+			this._getAirlinesByTime().then(() => {
+				ShowTrail.generateMigrationMap(
+					this.viewer,
+					this.renderAirlinesList,
+					this.data_geo
+				)
+				this.queryId = ""
+			})
 		},
 		getQueryList(list) {
 			let { airlinesList, byFrom } = list
-		  byFrom = byFrom ? 1 : 2
+			byFrom = byFrom ? 1 : 2
 			const arr = ShowTrail.generateMigrationMap(
 				this.viewer,
 				airlinesList,
 				this.data_geo,
 				byFrom
 			)
-			this.features = JsonToLayer.jsonToFeatureSet(arr)
+			this.features = arr
 		},
 		switchBtnClick(tab) {
 			if (tab.label == "航班实时") {
@@ -311,6 +318,7 @@ export default {
 .el-main {
 	padding: 0;
 	height: 100%;
+	position: relative;
 }
 
 .el-aside {
@@ -347,16 +355,25 @@ export default {
 }
 
 #fixed-box {
-	position: fixed;
-	height: 200px;
-	width: 400px;
-	right: 40px;
-	bottom: 40px;
+	position: absolute;
+	height: 60px;
+	width: 20px;
+	right: 0;
+	top: 20%;
 	background-color: white;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.8rem;
+	border: 3px solid #bfbfbf;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
 
-	.heatmapcontainer {
-		width: 100%;
-		height: 100%;
-	}
+.heatmap-container {
+	height: 45%;
+	width: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<el-card shadow="hover" v-for="(item, i) in cList" :key="i">
+		<el-card shadow="hover" v-for="item in cList" :key="item._id">
 			<p class="card-title" @click="cardClick(item._id)">{{ item.numb }}</p>
 			<div style="display: flex">
 				<p class="card-place">从</p>
