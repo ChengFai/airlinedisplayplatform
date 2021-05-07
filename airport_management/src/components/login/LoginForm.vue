@@ -57,6 +57,7 @@ export default {
 		}
 	},
 	methods: {
+    // 登录按钮点击
 		signinBtnClick() {
 			// 验证表单数据合法性
 			this.$refs["loginForm"].validate(async (valid) => {
@@ -66,6 +67,7 @@ export default {
 				}
 			})
 		},
+    // 注册按钮点击
 		signupBtnClick() {
 			this.$refs["loginForm"].validate(async (valid) => {
 				if (valid) {

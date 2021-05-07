@@ -56,11 +56,13 @@ export default {
 		return {}
 	},
 	methods: {
-		handleCommand(command) {
+    // 处理退出登录
+		handleCommand() {
 			window.sessionStorage.clear()
 			this.$message({ type: "success", message: "退出登录成功" })
 			this.$router.push("/login")
 		},
+    // 设定地图样式
 		mapStyle() {
 			if (this.$route.path == "/map") {
 				return {
@@ -70,6 +72,7 @@ export default {
 				return ""
 			}
 		},
+    // 设定路由组件样式
 		viewStyle() {
 			if (this.$route.path == "/map") {
         return {

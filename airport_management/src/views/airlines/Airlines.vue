@@ -151,8 +151,8 @@ export default {
 		}
 	},
 	methods: {
+    // 根据查询条件获取航班列表
 		async _getAirlinesList() {
-			// 获取航班列表
 			const { data: result } = await this.$http.post(
 				"api/airlines/findbyquery",
 				this.query
@@ -166,8 +166,8 @@ export default {
 			}
 			this.isLoading = false
 		},
+    // 获取城市列表
 		async _getCityList() {
-			// 获取城市列表
 			const { data: result } = await this.$http.get("api/airlines/findcitys")
 			if (result.meta.status == 1) {
 				this.cityList = result.data.result
@@ -175,15 +175,18 @@ export default {
 				this.$message({ type: "error", message: result.meta.msg })
 			}
 		},
+    // 点击查询按钮
 		queryBtnClick() {
 			this.isLoading = true
 			this.query.queryInfo = { ...this.temp }
 			this._getAirlinesList()
 		},
+    // 页码改变
 		handleCurrentChange(newPage) {
 			this.query.queryPage = newPage
 			this._getAirlinesList()
 		},
+    // 切换从/到
 		inputChange() {
 			const i = this.temp.to
 			this.temp.to = this.temp.from

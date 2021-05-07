@@ -36,9 +36,11 @@ export default {
 		}
 	},
 	methods: {
+    // 返回上一页
 		goBack() {
 			this.$router.push("/airports")
 		},
+    // 获取从...到...的航班列表
 		async _getList(type) {
 			let result = []
 			if (type == "from") {

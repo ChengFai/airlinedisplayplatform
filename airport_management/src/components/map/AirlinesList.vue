@@ -55,6 +55,7 @@ export default {
 		},
 	},
 	methods: {
+    // 获取飞行进度百分比
 		getPercent(start, end) {
 			let percent =
 				(TimeTool.timeToNumb(this.cTime) - TimeTool.timeToNumb(start)) /
@@ -63,6 +64,7 @@ export default {
 			if (percent > 1) percent = 1
 			return Math.round(percent * 100)
 		},
+    // 点击卡片，在地图高亮
 		cardClick(id) {
 			this.$emit("cardclick", id)
 		},

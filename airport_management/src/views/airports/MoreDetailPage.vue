@@ -21,9 +21,11 @@ export default {
 		}
 	},
 	methods: {
+    // 返回上一页
 		goBack() {
 			this.$router.back(-1)
 		},
+    // 获取与该机场相干的机场列表
 		async _getAirlinesList() {
 			const startAirport = this.start
 			const endAirport = this.end

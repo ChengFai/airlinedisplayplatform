@@ -35,6 +35,7 @@ export default {
 		}
 	},
 	methods: {
+    // 获取热门机场列表
 		async _getHotAirportsList() {
 			const { data: result } = await this.$http.get("/api/airports/hot")
 			if (result.meta.status == 1) {

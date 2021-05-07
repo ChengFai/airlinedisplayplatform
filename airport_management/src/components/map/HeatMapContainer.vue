@@ -23,6 +23,7 @@ export default {
 		}
 	},
 	methods: {
+    // 初始化ArcGIS地图
 		loadMap() {
 			loadModules(["esri/views/MapView", "esri/Map"], { css: true }).then(
 				([MapView, Map]) => {
@@ -39,6 +40,7 @@ export default {
 				}
 			)
 		},
+    // 数据改变更新热力图
 		updateHeatMap() {
 			if (this.cfeatures == []) {
 				return false
@@ -79,6 +81,7 @@ export default {
 				this.$emit("heatmapLoaded")
 			})
 		},
+    // 生成雷达图
 		drawChart() {
 			const option = {
 				title: {
@@ -117,6 +120,7 @@ export default {
 			}
 			this.myChart.setOption(option)
 		},
+    // 统计数据
 		_statistic(arr) {
 			// 统计对象 {"机场名": 个数}
 			let radasObj = {}

@@ -89,6 +89,7 @@ export default {
 		}
 	},
 	methods: {
+    // 根据名称获取机场列表
 		async _getAirportsList() {
 			this.loading = true
 			const { data: result } = await this.$http.post(
@@ -103,19 +104,23 @@ export default {
 				this.$message({ type: "error", message: result.meta.msg })
 			}
 		},
+    // 每页个数改变
 		handleSizeChange(newSize) {
 			this.query.querySize = newSize
 			this._getAirportsList()
 		},
+    // 页码改变
 		handleCurrentChange(newPage) {
 			this.query.queryPage = newPage
 			this._getAirportsList()
 		},
+    // 点击查询按钮
 		searchClick() {
 			this.query.queryPage = 1 // 重置页码
       this.query.queryInfo = this.temp
 			this._getAirportsList()
 		},
+    // 点击打开地图对话框
 		mapBtnClick(point) {
 			const { name } = point
 			let { x, y } = point.coord
@@ -148,6 +153,7 @@ export default {
 			}
 			this.dialogLoading = false
 		},
+    // 转至详情页
 		goToDetail(name) {
 			this.$router.push(`/detail/${name}`)
 		},

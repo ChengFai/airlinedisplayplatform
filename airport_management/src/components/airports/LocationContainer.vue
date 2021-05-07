@@ -42,6 +42,7 @@ export default {
 		}
 	},
 	methods: {
+    // 初始化百度地图
 		_createMap() {
 			// 创建Map实例
 			var map = new BMap.Map("map")
@@ -76,6 +77,7 @@ export default {
 			// 添加获取定位控件
 			map.addControl(new BMap.GeolocationControl())
 		},
+    // 根据搜索地点获取附近机场
 		getAirports(searchText) {
 			if (this.map == "")
 				// 地图未加载

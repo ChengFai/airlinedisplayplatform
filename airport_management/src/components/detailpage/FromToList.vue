@@ -94,13 +94,16 @@ export default {
 		},
 	},
 	methods: {
+    // 点击首字母
 		hrefClick(index) {
 			this.current = index
 		},
+    // 获取拼音首字母为某的列表
 		getListByLetter(letter) {
 			let letterArr = this.cAirportsList.filter((item) => item.first == letter)
 			return letterArr
 		},
+    // 转至二级详情页
 		toDetailClick(start, end, e) {
 			// 取消默认事件
 			if (e && e.preventDefault) {

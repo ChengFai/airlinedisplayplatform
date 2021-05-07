@@ -61,6 +61,7 @@ export default {
 		},
 	},
 	methods: {
+    // 根据条件获取航班列表
 		async _getAirlinesList() {
 			const { data: result } = await this.$http.get("/api/airlines/findbymap", {
 				params: {
@@ -79,10 +80,12 @@ export default {
 				this.$message({ type: "success", message: result.meta.msg })
 			}
 		},
+    // 点击查询
 		queryBtnClick() {
 			this._getAirlinesList()
 			this.nowTime = TimeTool.getTime()
 		},
+    // 点击按钮，地图航线高亮显示
 		cardClick(id) {
 			this.$emit("cardclick", id)
 		},

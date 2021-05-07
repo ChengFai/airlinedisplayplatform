@@ -62,6 +62,7 @@ export default {
 		}
 	},
 	methods: {
+    // 点击打开地图对话框
 		mapBtnClick(point) {
 			const { name, x, y } = point
 			this.currentName = name
@@ -91,6 +92,7 @@ export default {
 			}
 			this.dialogLoading = false
 		},
+    // 初始化ArcGIS地图
 		_loadMap() {
 			// 地图服务地址
 			const mapURL =
@@ -257,6 +259,7 @@ export default {
 					console.error(err)
 				})
 		},
+    // 转至详情页
 		goToDetail(name) {
 			this.$router.push(`/detail/${name}`)
 		},
