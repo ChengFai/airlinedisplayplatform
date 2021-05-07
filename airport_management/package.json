@@ -9,10 +9,10 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "echarts": "^5.1.1",
     "element-ui": "^2.4.5",
     "esri-loader": "^3.0.0",
     "vue": "^2.6.11",
+    "vue-echart": "^1.0.5",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

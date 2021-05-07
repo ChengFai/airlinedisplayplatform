@@ -370,6 +370,7 @@ export default {
 	border: 3px solid #bfbfbf;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
+	cursor: not-allowed;
 }
 
 .heatmap-container {
