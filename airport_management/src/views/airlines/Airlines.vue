@@ -205,9 +205,6 @@ export default {
 				this.temp.weekday = ""
 			}
 		},
-		"query.queryInfo.from"() {
-			console.log(111)
-		},
 	},
 }
 </script>

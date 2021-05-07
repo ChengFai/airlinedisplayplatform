@@ -12,6 +12,7 @@ import "./plugins/element.js";
 import axios from "axios";
 // 配置基础url
 // axios.defaults.baseURL = "http://localhost:3000/api/airmana";
+
 // 配置发送前拦截并添加token
 axios.interceptors.request.use(config => {
 	config.headers.Authorization = window.sessionStorage.getItem("token");

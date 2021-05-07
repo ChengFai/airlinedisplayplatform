@@ -1,8 +1,8 @@
 const { Airports } = require("../utils/db");
 
 // 从数据库获取热门机场
-exports.findHot = () => {
-	return Airports.find();
+exports.findHot = num => {
+	return Airports.find({ hot: { $lte: num } });
 };
 
 // 从数据库获取所有机场列表

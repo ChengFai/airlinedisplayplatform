@@ -33,7 +33,7 @@
 			</el-aside>
 			<el-main>
 				<div id="cesium-container"></div>
-				<div id="fixed-box" @click="drawer = true">
+				<div id="fixed-box" @click="fixedBoxClicked">
 					<span>热</span>
 					<span>力</span>
 					<span>图</span>
@@ -72,6 +72,7 @@ export default {
 			queryId: "", // 记录地图中id查询得上一个id，用于回归样式
 			features: [],
 			drawer: false, // 抽屉显示与否
+			fixedboxValiable: false,
 		}
 	},
 	methods: {
@@ -138,6 +139,7 @@ export default {
 				byFrom
 			)
 			this.features = arr
+			this.fixedboxValiable = true
 		},
 		switchBtnClick(tab) {
 			if (tab.label == "航班实时") {
@@ -151,18 +153,26 @@ export default {
 		cardClick(id) {
 			this.queryId = ShowTrail.changeStyle(this.viewer, this.queryId, id) // 记录查询id
 		},
+		fixedBoxClicked() {
+			if (!this.fixedboxValiable) {
+				this.$message({ type: "warning", message: "请先进行航线查询" })
+			} else {
+				this.drawer = true
+			}
+		},
 	},
 	created() {
 		this.nowTime = TimeTool.getTime()
 		// 每隔5分钟更新一次时间
 		setInterval(() => {
 			this.nowTime = TimeTool.getTime()
-			console.log(this.nowTime)
 		}, 300000)
 	},
 	async mounted() {
 		await this._getAirports()
 		await this._getAirlinesByTime()
+		// 配置cesium的token
+		Cesium.Ion.defaultAccessToken = ShowTrail.token
 		const viewer = new Cesium.Viewer("cesium-container", {
 			geocoder: false,
 			baseLayerPicker: false,
@@ -370,7 +380,6 @@ export default {
 	border: 3px solid #bfbfbf;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
-	cursor: not-allowed;
 }
 
 .heatmap-container {

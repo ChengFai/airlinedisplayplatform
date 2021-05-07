@@ -36,7 +36,7 @@ import {
 	Icon,
 	Radio,
 	Progress,
-	Drawer
+	Drawer,
 } from "element-ui";
 
 Vue.use(Button);

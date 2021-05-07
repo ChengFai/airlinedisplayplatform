@@ -138,7 +138,6 @@ export default {
 							zoom: 13,
 						})
 						this.dialogView = dialogView
-						console.log(this.dialogView)
 					}
 				)
 			} else {

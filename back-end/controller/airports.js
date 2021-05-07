@@ -3,7 +3,8 @@ const airportsModel = require("../models/airports");
 // 处理获取热门机场列表请求
 exports.getHot = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");
-	const result = await airportsModel.findHot();
+	const { num } = req.query;
+	const result = await airportsModel.findHot(num);
 	if (result) {
 		// 热门列表获取成功
 		res.render("success", {

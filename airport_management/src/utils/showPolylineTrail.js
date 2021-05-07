@@ -1,4 +1,7 @@
 export default {
+	// cesium的token
+	token:
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5Mzg5YWQyMS01YzcyLTQyZWQtYjE3ZS04Y2M1MmZhYjI2YjEiLCJpZCI6MjE4OTgsImlhdCI6MTYxNTM4MzAzMH0.8z2wKFdv9Aps1RAfB27oITkje23mIW3mnuvAdrK23io",
 	// 根据起点终点生成曲线
 	_generateCurve(startPoint, endPoint) {
 		let addPointCartesian = new Cesium.Cartesian3();
@@ -135,7 +138,6 @@ export default {
 		} else {
 			// 高亮显示
 			let entity = viewer.entities.getById(id);
-			// console.log(entity);
 			entity.polyline.width = 5;
 			entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
 				glowPower: 0.5,

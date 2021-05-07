@@ -74,7 +74,6 @@ export default {
 						username,
 						password,
 					})
-					console.log(result)
 					if (result.meta.status == 1) {
 						// 注册成功 -> 应当进行登录
 						await this._signinReq(username, password) // 调用登录函数
