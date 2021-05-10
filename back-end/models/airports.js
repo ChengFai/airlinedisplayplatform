@@ -2,7 +2,7 @@ const { Airports } = require("../utils/db");
 
 // 从数据库获取热门机场
 exports.findHot = num => {
-	return Airports.find({ hot: { $lte: num } });
+	return Airports.find({ hot: { $lte: parseInt(num) } });
 };
 
 // 从数据库获取所有机场列表

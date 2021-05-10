@@ -4,17 +4,20 @@
 			<!-- 标签列 -->
 			<el-tabs tab-position="left">
 				<el-tab-pane class="tab_item" label="热门机场">
-					<airports-list :cAirportsList="hotAirportList"></airports-list>
+					<airports-list
+						:cAirportsList="hotAirportList"
+						@queryNumChanged="queryNumChanged"
+					></airports-list>
 				</el-tab-pane>
 				<el-tab-pane label="按省份查询">
-          <map-container></map-container>
-        </el-tab-pane>
+					<map-container></map-container>
+				</el-tab-pane>
 				<el-tab-pane label="按名称查询">
 					<name-query-container></name-query-container>
 				</el-tab-pane>
 				<el-tab-pane label="查找附近">
-          <location-container></location-container>
-        </el-tab-pane>
+					<location-container></location-container>
+				</el-tab-pane>
 			</el-tabs>
 		</el-card>
 	</div>
@@ -32,17 +35,27 @@ export default {
 	data() {
 		return {
 			hotAirportList: [],
+			num: 10,
 		}
 	},
 	methods: {
-    // 获取热门机场列表
+		// 获取热门机场列表
 		async _getHotAirportsList() {
-			const { data: result } = await this.$http.get("/api/airports/hot")
+			const { data: result } = await this.$http.get("/api/airports/hot", {
+				params: {
+					num: this.num,
+				},
+			})
 			if (result.meta.status == 1) {
 				this.hotAirportList = result.data
 			} else {
 				this.$message({ type: "error", message: result.meta.msg })
 			}
+		},
+		// 请求个数发生改变
+		queryNumChanged(num) {
+			this.num = num
+			this._getHotAirportsList()
 		},
 	},
 	created() {
@@ -52,7 +65,7 @@ export default {
 		AirportsList,
 		MapContainer,
 		NameQueryContainer,
-    LocationContainer
+		LocationContainer,
 	},
 }
 </script>

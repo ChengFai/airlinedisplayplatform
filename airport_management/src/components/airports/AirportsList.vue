@@ -1,6 +1,18 @@
 <template>
 	<div class="list_container">
 		<!-- 首字母列表 -->
+		<div class="size-select-box">
+			<span>请选择显示个数</span>
+			<el-radio v-model="num" label="10" @change="radioSelectChanged"
+				>10</el-radio
+			>
+			<el-radio v-model="num" label="20" @change="radioSelectChanged"
+				>20</el-radio
+			>
+			<el-radio v-model="num" label="50" @change="radioSelectChanged"
+				>50</el-radio
+			>
+		</div>
 		<div class="letter_list">
 			<span>按首字母查询</span>
 			<div
@@ -25,7 +37,9 @@
 						v-for="(port, index) in getListByLetter(item)"
 						:key="index"
 					>
-						<a href="" @click="goToDetail(port.name, $event)">{{ port.name }}</a>
+						<a href="" @click="goToDetail(port.name, $event)">{{
+							port.name
+						}}</a>
 					</div>
 				</div>
 			</li>
@@ -39,6 +53,7 @@ export default {
 	data() {
 		return {
 			current: 0,
+			num: "10",
 		}
 	},
 	computed: {
@@ -61,25 +76,29 @@ export default {
 		},
 	},
 	methods: {
-    // 点击首字母
+		// 点击首字母
 		hrefClick(index) {
 			this.current = index
 		},
-    // 获取拼音首字母为某的列表
+		// 获取拼音首字母为某的列表
 		getListByLetter(letter) {
 			let letterArr = this.cAirportsList.filter((item) => item.first == letter)
 			return letterArr
 		},
-    // 转至详情页
-    goToDetail(name, e) {
-      // 取消默认事件
+		// 详情页
+		goToDetail(name, e) {
+			// 取消默认事件
 			if (e && e.preventDefault) {
 				e.preventDefault() //非IE浏览器
 			} else {
 				window.event.returnValue = false //IE浏览器
 			}
-      this.$router.push(`/detail/${name}`)
-    }
+			this.$router.push(`/detail/${name}`)
+		},
+		// 请求的个数发生改变
+		radioSelectChanged(label) {
+			this.$emit("queryNumChanged", label)
+		},
 	},
 }
 </script>
@@ -195,6 +214,20 @@ export default {
 				}
 			}
 		}
+	}
+}
+
+.size-select-box {
+	margin-bottom: 10px;
+  color: #bbb;
+
+  .el-radio {
+    color: #bbb !important;
+  }
+
+	span {
+		font-size: 0.9rem;
+		margin-right: 10px;
 	}
 }
 </style>

@@ -6,7 +6,7 @@ const { getHot, list, find, getAll } = require("../controller/airports");
 const { auth } = require("../middleware/auth");
 
 // 获取热门机场列表
-router.get("/hot", auth, getHot);
+router.get("/hot", getHot);
 // 获取全部机场列表
 router.get("/all", auth, getAll);
 // 获取机场列表

@@ -184,6 +184,7 @@ export default {
 			vrButton: false,
 			selectionIndicator: false,
 			infoBox: false,
+			sceneModePicker: false,
 		})
 		this.viewer = viewer
 		viewer._cesiumWidget._creditContainer.style.display = "none"
