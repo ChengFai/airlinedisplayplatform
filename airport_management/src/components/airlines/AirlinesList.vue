@@ -74,6 +74,7 @@
 			prop="ontimeRate"
 			label="准点率"
 			sortable
+			:sort-method="onTimeRateSort"
 			width="100"
 		></el-table-column>
 		<el-table-column prop="date" label="本周参考班期">
@@ -84,7 +85,7 @@
 						:key="index"
 						:class="{ blue: scope.row.date[index] == '1' }"
 					>
-						{{ item }}
+						{{item}}
 					</span>
 				</div>
 			</template>
@@ -101,7 +102,20 @@ export default {
 			dateList: ["一", "二", "三", "四", "五", "六", "日"],
 		}
 	},
-	methods: {},
+	methods: {
+		// 准时率排序
+		onTimeRateSort(a, b) {
+			const r1 =
+				a.ontimeRate == "-"
+					? -1
+					: a.ontimeRate.substr(0, a.ontimeRate.length - 1)
+			const r2 =
+				b.ontimeRate == "-"
+					? -1
+					: b.ontimeRate.substr(0, b.ontimeRate.length - 1)
+			return r1 - r2
+		},
+	},
 	props: {
 		cList: {
 			type: Array,

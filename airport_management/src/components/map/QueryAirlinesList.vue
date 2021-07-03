@@ -83,6 +83,7 @@ export default {
     // 点击查询
 		queryBtnClick() {
 			this._getAirlinesList()
+      this.$emit("resetQueryId")
 			this.nowTime = TimeTool.getTime()
 		},
     // 点击按钮，地图航线高亮显示

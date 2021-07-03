@@ -5,6 +5,8 @@ import router from "./router";
 // 引用样式
 import "./assets/less/style.less";
 import "./assets/less/loading.less";
+import "./assets/icon/iconfont.css";
+
 // 引用element-ui
 import "./plugins/element.js";
 

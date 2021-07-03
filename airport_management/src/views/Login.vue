@@ -182,7 +182,7 @@ label {
 		flex-direction: column;
 
 		.login_title {
-			margin: 30px 0px 30px 0;
+			margin: 30px 0px 25px 0;
 			font-weight: 600;
 			font-size: 24px;
 
@@ -213,7 +213,7 @@ label {
 	}
 }
 .switch_btn {
-	margin-top: 20px;
+	margin-top: 15px;
 	margin-right: 20px;
 	margin-left: auto;
 }

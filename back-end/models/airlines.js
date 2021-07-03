@@ -40,7 +40,7 @@ exports.findByQuery = (query, queryPage, querySize) => {
 
 // 查询数据的数据量
 exports.findCount = query => {
-	return Airlines.count(query);
+	return Airlines.find(query).countDocuments();
 };
 
 // 从数据库获取非重复的城市列表
@@ -51,13 +51,17 @@ exports.findCitys = () => {
 };
 
 // 从数据库获取时间点上正在飞行的飞机
-exports.findByTime = (time, queryPage) => {
-	const data = Airlines.find({ startTime: { $lt: time }, endTime: { $gt: time } })
+exports.findByTime = (date, time, queryPage) => {
+	let query = { startTime: { $lt: time }, endTime: { $gt: time } };
+	query["date." + date] = 1;
+	const data = Airlines.find(query)
 		.skip((parseInt(queryPage) - 1) * 200) // 默认每次200条
 		.limit(200);
-	const total = Airlines.find({ startTime: { $lt: time }, endTime: { $gt: time } }).count();
-	return {
-		data,
-		total
-	};
+	const total = Airlines.find(query).countDocuments();
+	return { data, total };
+};
+
+// 从数据库获取符合侧重的航班列表
+exports.findByRecommend = query => {
+	return Airlines.find(query);
 };

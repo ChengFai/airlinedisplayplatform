@@ -24,8 +24,9 @@ export default {
 	},
 
 	// 绘制
-	generateMigrationMap(viewer, data, data_geo, byFrom = 0) {
-		viewer.entities.removeAll();
+	generateMigrationMap(viewer, data, data_geo = [], byFrom = 0) {
+    // if (viewer.data.queryId != "") viewer.data.queryId = ""; 
+    viewer.entities.removeAll();
 		if (!data) {
 			return;
 		}

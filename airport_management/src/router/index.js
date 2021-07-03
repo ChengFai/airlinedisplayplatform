@@ -8,6 +8,7 @@ const Airports = () => import("../views/airports/Airports");
 const DetailPage = () => import("../views/airports/DetailPage");
 const MoreDetailPage = () => import("../views/airports/MoreDetailPage");
 const Airlines = () => import("../views/airlines/Airlines");
+const SmartRecommend = () => import("../views/smartrecommend/SmartRecommend");
 
 Vue.use(VueRouter);
 
@@ -19,11 +20,12 @@ const routes = [
 		component: Home,
 		redirect: "/map",
 		children: [
-			{ path: "/map", meta: { title: "地图" }, component: Map },
+			{ path: "/map", meta: { title: "航班动态" }, component: Map },
 			{ path: "/airports", meta: { title: "机场查询" }, component: Airports },
 			{ path: "/detail/:name", meta: { title: "详情页", noAlive: true }, component: DetailPage, props: true },
 			{ path: "/moredetail", name: "moredetail", meta: { title: "航班详情", noAlive: true }, component: MoreDetailPage },
-			{ path: "/airlines", meta: { title: "航班动态" }, component: Airlines }
+			{ path: "/airlines", meta: { title: "航班查询" }, component: Airlines },
+			{ path: "/recommend", meta: { title: "智能推荐" }, component: SmartRecommend }
 		]
 	}
 ];

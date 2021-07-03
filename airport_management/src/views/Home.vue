@@ -18,9 +18,10 @@
 				:default-active="this.$route.path"
 				router
 			>
-				<el-menu-item index="/map">地图</el-menu-item>
+				<el-menu-item index="/map">航班动态</el-menu-item>
 				<el-menu-item index="/airports">机场查询</el-menu-item>
-				<el-menu-item index="/airlines">航班动态</el-menu-item>
+				<el-menu-item index="/airlines">航班查询</el-menu-item>
+        <el-menu-item index="/recommend">智能推荐</el-menu-item>
 			</el-menu>
 			<!-- 头部：右侧头像-退出登录 -->
 			<div class="block avatar el-dropdown-link">

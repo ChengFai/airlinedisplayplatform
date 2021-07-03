@@ -37,6 +37,10 @@ import {
 	Radio,
 	Progress,
 	Drawer,
+	Steps,
+	Step,
+	Tag,
+	Tooltip
 } from "element-ui";
 
 Vue.use(Button);
@@ -76,3 +80,7 @@ Vue.use(Icon);
 Vue.use(Radio);
 Vue.use(Progress);
 Vue.use(Drawer);
+Vue.use(Steps);
+Vue.use(Step);
+Vue.use(Tag);
+Vue.use(Tooltip);

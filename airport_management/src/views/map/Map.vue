@@ -27,6 +27,7 @@
 						<query-airlines-list
 							@getQueryList="getQueryList"
 							@cardclick="cardClick"
+              @resetQueryId="resetQueryId"
 						></query-airlines-list>
 					</el-tab-pane>
 				</el-tabs>
@@ -65,6 +66,7 @@ export default {
 		return {
 			data_geo: {}, // 格式化后的机场列表
 			renderAirlinesList: [], // 渲染航班列表
+      nowWeekday: -1, // 当前星期
 			nowTime: "", // 当前时间，例：“09:09”
 			total: 0, // 数据总量
 			page: 1, // 当前页数
@@ -76,6 +78,7 @@ export default {
 		}
 	},
 	methods: {
+    // 获取全部机场列表
 		async _getAirports() {
 			const { data: result } = await this.$http.get("/api/airports/all")
 			if (result.meta.status == 1) {
@@ -87,7 +90,8 @@ export default {
 			} else {
 				this.$message({ type: "error", message: result.meta.msg })
 			}
-		},
+		}, 
+    /*
 		async _getAirlines() {
 			const { data: result } = await this.$http.post(
 				"/api/airlines/findbyfrom",
@@ -101,11 +105,14 @@ export default {
 				this.$message({ type: "error", message: result.meta.msg })
 			}
 		},
-		async _getAirlinesByTime() {
+    */
+		// 获取实时航班
+    async _getAirlinesByTime() {
 			const { data: result } = await this.$http.get(
 				"/api/airlines/findbytime",
 				{
 					params: {
+            weekday: this.nowWeekday,
 						time: this.nowTime,
 						page: this.page,
 					},
@@ -118,6 +125,11 @@ export default {
 				this.$message({ type: "success", message: result.meta.msg })
 			}
 		},
+    // queryId归零
+    resetQueryId() {
+      this.queryId = ""
+    },
+    // 翻页
 		handleCurrentChange(page) {
 			this.page = page
 			this._getAirlinesByTime().then(() => {
@@ -129,6 +141,7 @@ export default {
 				this.queryId = ""
 			})
 		},
+    // 航线查询
 		getQueryList(list) {
 			let { airlinesList, byFrom } = list
 			byFrom = byFrom ? 1 : 2
@@ -141,7 +154,9 @@ export default {
 			this.features = arr
 			this.fixedboxValiable = true
 		},
+    // 切换回实时航班
 		switchBtnClick(tab) {
+      this.queryId = ""
 			if (tab.label == "航班实时") {
 				ShowTrail.generateMigrationMap(
 					this.viewer,
@@ -150,9 +165,11 @@ export default {
 				)
 			}
 		},
+    // 点击高亮
 		cardClick(id) {
 			this.queryId = ShowTrail.changeStyle(this.viewer, this.queryId, id) // 记录查询id
 		},
+    // 点击热力图
 		fixedBoxClicked() {
 			if (!this.fixedboxValiable) {
 				this.$message({ type: "warning", message: "请先进行航线查询" })
@@ -162,10 +179,12 @@ export default {
 		},
 	},
 	created() {
+    this.nowWeekday = TimeTool.getWeekday()
 		this.nowTime = TimeTool.getTime()
 		// 每隔5分钟更新一次时间
 		setInterval(() => {
 			this.nowTime = TimeTool.getTime()
+      this._getAirlinesByTime()
 		}, 300000)
 	},
 	async mounted() {

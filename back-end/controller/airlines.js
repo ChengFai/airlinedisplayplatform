@@ -1,6 +1,5 @@
 const airlinesModel = require("../models/airlines");
 const { arrAddFirst } = require("../utils/tools");
-//
 
 // 处理获取全部航班列表的请求
 exports.list = async (req, res, next) => {
@@ -143,7 +142,6 @@ exports.findByQuery = async (req, res, next) => {
 	if (numb !== "") query.numb = numb;
 	if (weekday !== "") query["date." + weekday] = 1;
 	const { queryPage, querySize } = req.body;
-	console.log(query);
 	const result = await airlinesModel.findByQuery(query, queryPage, querySize);
 	const total = await airlinesModel.findCount(query);
 	if (result) {
@@ -187,12 +185,12 @@ exports.findCitys = async (req, res, next) => {
 	}
 };
 
-// 处理根据时间获取航班
+// 处理根据时间获取航班的请求
 exports.findByTime = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");
-	const { time, page } = req.query;
-	const result = await airlinesModel.findByTime(time, page).data;
-	const total = await airlinesModel.findByTime(time, page).total;
+	const { weekday, time, page } = req.query;
+	const result = await airlinesModel.findByTime(weekday, time, page).data;
+	const total = await airlinesModel.findByTime(weekday, time, page).total;
 	if (result) {
 		res.render("success", {
 			data: JSON.stringify({ result, total }),
@@ -206,11 +204,10 @@ exports.findByTime = async (req, res, next) => {
 	}
 };
 
-// 处理根据从/到某个城市/机场的条件获取航班
+// 处理根据从/到某个城市/机场的条件获取航班的请求
 exports.findByMap = async (req, res, next) => {
 	res.set("content-type", "application/json;charset=utf-8");
 	const { byFrom, byCity, query } = req.query;
-	console.log(typeof byFrom);
 	let result = "";
 	if (byFrom == "true") {
 		if (byCity == "true") {
@@ -229,6 +226,31 @@ exports.findByMap = async (req, res, next) => {
 			result = await airlinesModel.findByToAirport(query);
 		}
 	}
+	if (result !== "") {
+		res.render("success", {
+			data: JSON.stringify(result),
+			msg: "获取列表成功"
+		});
+	} else {
+		res.render("error", {
+			data: "null",
+			msg: "获取列表失败"
+		});
+	}
+};
+
+// 处理根据用户选择侧重获取航班列表的请求
+exports.findByRecommend = async (req, res, next) => {
+	res.set("content-type", "application/json;charset=utf-8");
+	const { from, to, date, time } = req.query;
+	const query = {
+		startAirport: from,
+		endAirport: to
+	};
+	query["date." + date] = 1;
+	if (time == "beforenoon") query.startTime = { $lt: "12:00" };
+	else if (time == "afternoon") query.startTime = { $gt: "12:00" };
+	const result = await airlinesModel.findByRecommend(query);
 	if (result !== "") {
 		res.render("success", {
 			data: JSON.stringify(result),

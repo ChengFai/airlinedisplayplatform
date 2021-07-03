@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<div id="heatmap-container"></div>
+		<el-row v-loading="loading">
+			<div id="heatmap-container"></div>
+		</el-row>
 		<div id="chart-container"></div>
 	</div>
 </template>
@@ -20,10 +22,11 @@ export default {
 			features: [],
 			radasList: [],
 			maxNum: 0,
+			loading: false,
 		}
 	},
 	methods: {
-    // 初始化ArcGIS地图
+		// 初始化ArcGIS地图
 		loadMap() {
 			loadModules(["esri/views/MapView", "esri/Map"], { css: true }).then(
 				([MapView, Map]) => {
@@ -40,11 +43,12 @@ export default {
 				}
 			)
 		},
-    // 数据改变更新热力图
+		// 数据改变更新热力图
 		updateHeatMap() {
 			if (this.cfeatures == []) {
 				return false
 			}
+			this.loading = true
 			loadModules(
 				[
 					"esri/layers/FeatureLayer",
@@ -78,10 +82,11 @@ export default {
 				const res = await heatmapRendererCreator.createRenderer(heatmapParams)
 				featureLayer.renderer = res.renderer
 				this.view.map.layers.add(featureLayer)
+				this.loading = false
 				this.$emit("heatmapLoaded")
 			})
 		},
-    // 生成雷达图
+		// 生成雷达图
 		drawChart() {
 			const option = {
 				title: {
@@ -120,7 +125,7 @@ export default {
 			}
 			this.myChart.setOption(option)
 		},
-    // 统计数据
+		// 统计数据
 		_statistic(arr) {
 			// 统计对象 {"机场名": 个数}
 			let radasObj = {}
@@ -164,14 +169,6 @@ export default {
 				.slice(0, 6)
 			this.radasList = radasArr
 			this.maxNum = maxNum
-			console.log(
-				this.radasList.map((item) => {
-					return {
-						name: item.name,
-						max: this.maxNum,
-					}
-				})
-			)
 		},
 	},
 	mounted() {
@@ -204,6 +201,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-row {
+	height: 100%;
+	width: 100%;
+}
 #heatmap-container {
 	height: 100%;
 	width: 100%;

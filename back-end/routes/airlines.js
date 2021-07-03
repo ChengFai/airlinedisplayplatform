@@ -1,7 +1,19 @@
 const express = require("express");
 const router = express.Router();
 // 航班相关controller
-const { list, findByFrom, findByTo, findByFAirport, findByTAirport, findByAirports, findByQuery, findCitys, findByTime, findByMap } = require("../controller/airlines");
+const {
+	list,
+	findByFrom,
+	findByTo,
+	findByFAirport,
+	findByTAirport,
+	findByAirports,
+	findByQuery,
+	findCitys,
+	findByTime,
+	findByMap,
+	findByRecommend
+} = require("../controller/airlines");
 
 // 判断登录中间件
 const { auth } = require("../middleware/auth");
@@ -23,8 +35,10 @@ router.post("/findbyquery", auth, findByQuery);
 // 获取相关城市列表
 router.get("/findcitys", auth, findCitys);
 // 根据时间获取航班列表
-router.get("/findbytime", auth, findByTime);
+router.get("/findbytime", findByTime);
 // 根据从/到某个城市/机场的条件获取航班列表
 router.get("/findbymap", auth, findByMap);
+// 根据侧重条款获取航班列表
+router.get("/findbyrecommend", auth, findByRecommend);
 
 module.exports = router;

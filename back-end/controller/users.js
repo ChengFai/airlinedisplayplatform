@@ -75,7 +75,6 @@ exports.isAuth = async (req, res, next) => {
 	const token = req.get("X-Access-Token");
 	try {
 		const result = verify(token);
-    console.log(result);
 		// token验证成功，用户已登录
 		res.render("success", {
 			data: JSON.stringify(result),
