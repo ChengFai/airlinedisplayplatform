@@ -1,5 +1,6 @@
 # airlinedisplayplatform
 毕设项目：基于WebGIS实现的全国主要机场航班查询及动态展示系统
+bilibili：https://www.bilibili.com/video/BV1of4y1579c/
 ## 内容
   * 三维航线展示（当前时间飞行中的航班、根据从/到某地/某机场显示相关航班）
   * 热门机场以及点击进入详情页
