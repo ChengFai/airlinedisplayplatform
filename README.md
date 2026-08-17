@@ -1,3 +1,5 @@
+
+
 # airlinedisplayplatform
 毕设项目：基于WebGIS实现的全国主要机场航班查询及动态展示系统
 bilibili：https://www.bilibili.com/video/BV1of4y1579c/
@@ -14,4 +16,4 @@ bilibili：https://www.bilibili.com/video/BV1of4y1579c/
   * 三维地图部分使用Cesium
 ## 后台
   * 使用NodeJS，express框架
-  * 使用mongoDB
+  * 使用mongoose操作mongoDB
